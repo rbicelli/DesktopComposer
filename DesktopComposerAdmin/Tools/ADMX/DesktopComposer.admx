@@ -1,0 +1,40 @@
+<policyDefinitions revision="1.0" schemaVersion="1.0">
+  <policyNamespaces>
+    <target prefix="fullarmor" namespace="FullArmor.Policies.C9C360E2_9248_4C39_BC1E_B63AEE770F8F" />
+    <using prefix="windows" namespace="Microsoft.Policies.Windows" />
+  </policyNamespaces>
+  <supersededAdm fileName="" />
+  <resources minRequiredRevision="1.0" />
+  <categories>
+    <category name="CAT_BAED95A5_B50E_460C_8743_9532B39113B3" displayName="$(string.CAT_BAED95A5_B50E_460C_8743_9532B39113B3)" />
+    <category name="CAT_33502ED5_2204_4960_BF21_0849049D8059" displayName="$(string.CAT_33502ED5_2204_4960_BF21_0849049D8059)">
+      <parentCategory ref="CAT_BAED95A5_B50E_460C_8743_9532B39113B3" />
+    </category>
+  </categories>
+  <policies>
+    <policy name="POL_26DC6CD9_3A31_41CD_92C9_E2EC2EB23919" class="User" displayName="$(string.POL_26DC6CD9_3A31_41CD_92C9_E2EC2EB23919)" explainText="$(string.POL_26DC6CD9_3A31_41CD_92C9_E2EC2EB23919_Help)" key="\Software\Policies\DesktopComposer\ComposerAgent" valueName="CompositionFileLocation">
+      <parentCategory ref="CAT_33502ED5_2204_4960_BF21_0849049D8059" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+    </policy>
+    <policy name="POL_544B9A5F_4CE2_4062_A8E2_A2A2FA7D809D" class="User" displayName="$(string.POL_544B9A5F_4CE2_4062_A8E2_A2A2FA7D809D)" explainText="$(string.POL_544B9A5F_4CE2_4062_A8E2_A2A2FA7D809D_Help)" presentation="$(presentation.POL_544B9A5F_4CE2_4062_A8E2_A2A2FA7D809D)" key="\Software\Policies\DesktopComposer\ComposerAgent" valueName="AgentEnable">
+      <parentCategory ref="CAT_33502ED5_2204_4960_BF21_0849049D8059" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+    </policy>
+    <policy name="POL_DB6FCC79_D623_4994_B4C2_545DC42B3F59" class="User" displayName="$(string.POL_DB6FCC79_D623_4994_B4C2_545DC42B3F59)" explainText="$(string.POL_DB6FCC79_D623_4994_B4C2_545DC42B3F59_Help)" key="\Software\Policies\DesktopComposer\ComposerAgent" valueName="AgentDecomposeAtLogoffDisable">
+      <parentCategory ref="CAT_33502ED5_2204_4960_BF21_0849049D8059" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+    </policy>
+    <policy name="POL_5B19C52A_EEE1_4CC6_87B0_BB325E05CB09" class="Machine" displayName="$(string.POL_5B19C52A_EEE1_4CC6_87B0_BB325E05CB09)" explainText="$(string.POL_5B19C52A_EEE1_4CC6_87B0_BB325E05CB09_Help)" key="\Software\Policies\DesktopComposer\ComposerAgent" valueName="ComposeCleanLocalStartMenuIfDecomposed">
+      <parentCategory ref="CAT_33502ED5_2204_4960_BF21_0849049D8059" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <enabledValue />
+      <disabledValue />
+    </policy>
+    <policy name="POL_47B66F8E_31DD_4DA1_A171_319DC209A8FF" class="Machine" displayName="$(string.POL_47B66F8E_31DD_4DA1_A171_319DC209A8FF)" explainText="$(string.POL_47B66F8E_31DD_4DA1_A171_319DC209A8FF_Help)" key="\Software\Policies\DesktopComposer\ComposerAgent" valueName="AgentLogFileLocation">
+      <parentCategory ref="CAT_33502ED5_2204_4960_BF21_0849049D8059" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <enabledValue />
+      <disabledValue />
+    </policy>
+  </policies>
+</policyDefinitions>
