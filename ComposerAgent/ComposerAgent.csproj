@@ -50,7 +50,7 @@
     <Compile Include="ComposerMap.cs" />
     <Compile Include="ConsoleHandler.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="FileLogger.cs" />
+    <Compile Include="AppLogger.cs" />
     <Compile Include="InputArguments.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

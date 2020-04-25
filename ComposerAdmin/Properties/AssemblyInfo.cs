@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // Le informazioni generali relative a un assembly sono controllate dal seguente 
 // set di attributi. Modificare i valori di questi attributi per modificare le informazioni
 // associate a un assembly.
-[assembly: AssemblyTitle("ComposerAgent")]
-[assembly: AssemblyDescription("Desktop Composition Agent")]
+[assembly: AssemblyTitle("Shortcut Manager")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sequence Software")]
-[assembly: AssemblyProduct("ComposerAgent")]
-[assembly: AssemblyCopyright("Copyright © 2020 Riccardo Bicelli")]
+[assembly: AssemblyProduct("Shortcuts Manager")]
+[assembly: AssemblyCopyright("Copyright ©  2020 Riccardo Bicelli")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Se il progetto viene esposto a COM, il GUID seguente verrà utilizzato come ID della libreria dei tipi
-[assembly: Guid("6d18bc93-d36a-450e-8c64-f8b21a9926a4")]
+[assembly: Guid("d4cdc189-4e58-4c38-91da-650a4282f0b6")]
 
 // Le informazioni sulla versione di un assembly sono costituite dai seguenti quattro valori:
 //

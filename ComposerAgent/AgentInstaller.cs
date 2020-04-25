@@ -18,68 +18,87 @@ namespace ComposerAgent
         /// - Sets Deny ACL on Common Start Menu for Local User Group Created
         /// Run Elevated if started as normal user 
         /// </summary>        
-        public void Install()
+        public bool Install()
         {
+            Console.WriteLine("Installing...");
             WindowsPrincipal pricipal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
             bool hasAdministrativeRight = pricipal.IsInRole(WindowsBuiltInRole.Administrator);
-
+            bool ret = true;
             if (!hasAdministrativeRight)
             {
-                RunElevated(System.Reflection.Assembly.GetExecutingAssembly().CodeBase, "-install");
+                Console.WriteLine("Running Installer in Elevated Mode...");
+                
+                ret = RunElevated(System.Reflection.Assembly.GetExecutingAssembly().CodeBase, "-install");
+                if (ret) Console.WriteLine("Installation OK"); else Console.WriteLine("Installation ERROR");
+                return ret;            
             }
             else
             {
                 //Create Active Directory Group
                 try
                 {
-                    Console.WriteLine("Adding Security Group " + Constants.LOCAL_SECURITYGROUP_NAME);
+                    Console.Write("Adding Security Group {0} ...", Constants.LOCAL_SECURITYGROUP_NAME);
                     var ad = new DirectoryEntry("WinNT://" + Environment.MachineName + ",computer");
                     DirectoryEntry newGroup = ad.Children.Add(Constants.LOCAL_SECURITYGROUP_NAME, "group");
                     newGroup.Invoke("Put", new object[] { "Description", Constants.LOCAL_SECURITYGROUP_DESC });
                     newGroup.CommitChanges();
-                    //Common Start Menu
-                    Console.WriteLine("Setting Security ACLs to target directories");
-                    AddDirectorySecurity(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu), Constants.LOCAL_SECURITYGROUP_NAME);
-                    AddDirectorySecurity(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory), Constants.LOCAL_SECURITYGROUP_NAME);
+                    Console.WriteLine(" [OK]");
+                                        
+                    Console.Write("Setting Security ACLs to target directories...");
+                    ret = AddDirectorySecurity(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu), Constants.LOCAL_SECURITYGROUP_NAME);
+                    ret = AddDirectorySecurity(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory), Constants.LOCAL_SECURITYGROUP_NAME);
+                    Console.WriteLine(" [OK]");
+                    return ret;
                 }
                 catch
                 {
-                    Console.WriteLine("Installation Error");
-                    return;
-                }
-                //TODO: Set ACL on created group
+                    Console.WriteLine(" [ERROR]");
+                    return false;
+                }                
             }
         }
 
         /// <summary>
         /// Uninstallation Process
         /// Rollbacks Installation Process
-        /// Run ELevated if started as normal user
+        /// Run Elevated if started as normal user
         /// </summary>
-        public void Uninstall()
+        public bool Uninstall()
         {
             WindowsPrincipal pricipal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
             bool hasAdministrativeRight = pricipal.IsInRole(WindowsBuiltInRole.Administrator);
+            bool ret = true;
 
             if (!hasAdministrativeRight)
             {
-                RunElevated(System.Reflection.Assembly.GetExecutingAssembly().CodeBase, "-uninstall");
+                Console.WriteLine("Running Installer in Elevated Mode...");                
+                ret = RunElevated(System.Reflection.Assembly.GetExecutingAssembly().CodeBase, "-uninstall");                
+                if (ret) Console.WriteLine("Uninstallation OK"); else Console.WriteLine("Uninstallation ERROR");
+                return ret;
             }
             else
             {
                 //Delete Local Group                                                
                 try
                 {
+                    Console.Write("Setting Security ACLs to target directories...");
+
                     RemoveDirectorySecurity(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu), Constants.LOCAL_SECURITYGROUP_NAME);
                     AddDirectorySecurity(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory), Constants.LOCAL_SECURITYGROUP_NAME);
+                    
+                    Console.WriteLine(" [OK]");
+
+                    Console.Write("Removing Security Group {0} ...", Constants.LOCAL_SECURITYGROUP_NAME);                    
                     var ad = new DirectoryEntry("WinNT://" + Environment.MachineName + ",computer");
                     var group = ad.Children.Find(Constants.LOCAL_SECURITYGROUP_NAME, "group");
-                    ad.Children.Remove(group);
+                    ad.Children.Remove(group);                    
+                    Console.WriteLine(" [OK]");
+                    return true;
                 }
                 catch
                 {
-                    Console.WriteLine("Error during uninstallation");
-                    return;
+                    Console.WriteLine(" [ERROR]");
+                    return false;
                 }
             }
         }
@@ -93,57 +112,76 @@ namespace ComposerAgent
             processInfo.Arguments = args;
             try
             {
-                Process.Start(processInfo);
-                return true;
+                using (Process myProcess = Process.Start(processInfo)) {
+                    do
+                    {
+                      //Do Nothing  
+                    } while (!myProcess.WaitForExit(250));                    
+                    if (myProcess.ExitCode == 0) return true;
+                }
+                return false;
             }
+
             catch (Win32Exception)
             {
                 //Do nothing. Probably the user canceled the UAC window
-
-            }
-            return false;
+                return false;
+            }            
         }
 
         // Adds an ACL entry on the specified directory for the specified account.
-        public static void AddDirectorySecurity(string FileName, string Account)
+        public static bool AddDirectorySecurity(string FileName, string Account)
         {
             // Create a new DirectoryInfo object.
             DirectoryInfo dInfo = new DirectoryInfo(FileName);
             FileSystemRights Rights = FileSystemRights.ReadAndExecute;
             AccessControlType ControlType = AccessControlType.Deny;
 
+            try
+            {
+                // Get a DirectorySecurity object that represents the 
+                // current security settings.
+                DirectorySecurity dSecurity = dInfo.GetAccessControl();
 
-            // Get a DirectorySecurity object that represents the 
-            // current security settings.
-            DirectorySecurity dSecurity = dInfo.GetAccessControl();
+                // Add the FileSystemAccessRule to the security settings. 
+                dSecurity.AddAccessRule(new FileSystemAccessRule(Account, Rights, ControlType));
+                dSecurity.AddAccessRule(new FileSystemAccessRule(Account, Rights, InheritanceFlags.ContainerInherit, PropagationFlags.InheritOnly, ControlType));
+                dSecurity.AddAccessRule(new FileSystemAccessRule(Account, Rights, InheritanceFlags.ObjectInherit, PropagationFlags.InheritOnly, ControlType));
 
-            // Add the FileSystemAccessRule to the security settings. 
-            dSecurity.AddAccessRule(new FileSystemAccessRule(Account, Rights, ControlType));
-            dSecurity.AddAccessRule(new FileSystemAccessRule(Account, Rights, InheritanceFlags.ContainerInherit, PropagationFlags.InheritOnly, ControlType));
-            dSecurity.AddAccessRule(new FileSystemAccessRule(Account, Rights, InheritanceFlags.ObjectInherit, PropagationFlags.InheritOnly, ControlType));
-
-            // Set the new access settings.
-            dInfo.SetAccessControl(dSecurity);
+                // Set the new access settings.
+                dInfo.SetAccessControl(dSecurity);
+                return true;
+            } catch
+            {
+                return false;
+            } 
         }
 
         // Removes an ACL entry on the specified directory for the specified account.
-        public static void RemoveDirectorySecurity(string FileName, string Account)
+        public static bool RemoveDirectorySecurity(string FileName, string Account)
         {
-            // Create a new DirectoryInfo object.
-            DirectoryInfo dInfo = new DirectoryInfo(FileName);
-            FileSystemRights Rights = FileSystemRights.ReadAndExecute;
-            AccessControlType ControlType = AccessControlType.Deny;
+            try
+            {
+                // Create a new DirectoryInfo object.
+                DirectoryInfo dInfo = new DirectoryInfo(FileName);
+                FileSystemRights Rights = FileSystemRights.ReadAndExecute;
+                AccessControlType ControlType = AccessControlType.Deny;
 
-            // Get a DirectorySecurity object that represents the 
-            // current security settings.
-            DirectorySecurity dSecurity = dInfo.GetAccessControl();
-            // Add the FileSystemAccessRule to the security settings. 
-            dSecurity.RemoveAccessRule(new FileSystemAccessRule(Account, Rights, ControlType));
-            dSecurity.RemoveAccessRule(new FileSystemAccessRule(Account, Rights, InheritanceFlags.ContainerInherit, PropagationFlags.InheritOnly, ControlType));
-            dSecurity.RemoveAccessRule(new FileSystemAccessRule(Account, Rights, InheritanceFlags.ObjectInherit, PropagationFlags.InheritOnly, ControlType));
+                // Get a DirectorySecurity object that represents the 
+                // current security settings.
+                DirectorySecurity dSecurity = dInfo.GetAccessControl();
+                // Add the FileSystemAccessRule to the security settings. 
+                dSecurity.RemoveAccessRule(new FileSystemAccessRule(Account, Rights, ControlType));
+                dSecurity.RemoveAccessRule(new FileSystemAccessRule(Account, Rights, InheritanceFlags.ContainerInherit, PropagationFlags.InheritOnly, ControlType));
+                dSecurity.RemoveAccessRule(new FileSystemAccessRule(Account, Rights, InheritanceFlags.ObjectInherit, PropagationFlags.InheritOnly, ControlType));
 
-            // Set the new access settings.
-            dInfo.SetAccessControl(dSecurity);
+                // Set the new access settings.
+                dInfo.SetAccessControl(dSecurity);
+                return true;
+            } catch
+            {
+                return false;
+            }
         }
     }
 }

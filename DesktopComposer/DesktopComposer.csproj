@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DirectoryIterator.cs" />
+    <Compile Include="FileUtils.cs" />
     <Compile Include="Implementation\ACL.cs" />
     <Compile Include="Implementation\ACLs.cs" />
     <Compile Include="Implementation\Composition.cs" />

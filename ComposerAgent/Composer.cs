@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
 using DesktopComposer.Implementation;
 using System.Security.Principal;
-using System.Net.NetworkInformation;
-using Microsoft.SqlServer.Server;
 using DesktopComposer;
-using System.Collections.ObjectModel;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Policy;
 using Microsoft.Win32;
-using System.Diagnostics;
 
 namespace ComposerAgent
 {
@@ -33,14 +24,14 @@ namespace ComposerAgent
 
         private ComposerMap _composerMap;
 
-
         //Group Policy Constants
         private const string GPO_AGENT_ROOTKEY = @"HKEY_CURRENT_USER";
-        private const string GPO_AGENT_POLICYKEY = @"\Software\Policies\DesktopComposer\ComposerAgent\";
+        private const string GPO_AGENT_POLICYKEY = @"\Software\Policies\Sequence Software\Composer Agent\";
         private const string GPO_AGENT_ENABLE = "AgentEnable";
         private const string GPO_AGENT_DECOMPOSEATLOGOFF = "AgentDecomposeAtLogoffDisable";
         private const string GPO_AGENT_COMPOSITIONFILELOCATION = "CompositionFileLocation";
-        private const string GPO_AGENT_LOGFILELOCATION = "AgentLogFileLocation";        
+        private const string GPO_AGENT_LOGFILELOCATION = "AgentLogFileLocation";
+        private const string GPO_AGENT_LOGSEVERITYTHRESHOLD = "AgentLogSeverityThreshold";
 
         #region Constructors
         public Composer(string CompositionFileName=null, string StartMenuPath=null, string DesktopPath=null)
@@ -49,11 +40,11 @@ namespace ComposerAgent
             _composerMap = new ComposerMap();
             
             _backupDirStartMenu = "StartMenu";
-            
-            string LoggerFileName = _appdataDir + "ComposerLog.log";
-
+                        
             //Get Environment Folders
-            _appdataDir = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\DesktopComposer\\Agent";            
+            _appdataDir = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\DesktopComposer\\Agent";
+            
+            string LoggerFileName = _appdataDir + "\\Composer.log";
 
             _userGroupMembership = GetUserMembership();
 
@@ -79,36 +70,48 @@ namespace ComposerAgent
 
             //Is GPO Enabled?
             string RegistryKeyFullPath = GPO_AGENT_ROOTKEY + GPO_AGENT_POLICYKEY;
-            if ((int)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_ENABLE, 0) == 1)
+            int? isGPOLocked = (int?)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_ENABLE, 0);
+            if ( isGPOLocked!=null & isGPOLocked==1)
             {                
+                //If Locked by GPO the Reg Key Exists so it is safe to get values without care of errors
+                //Open Logger Filename
+                LoggerFileName = (string)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_LOGFILELOCATION, LoggerFileName);
+                AppLogger.FileName = Environment.ExpandEnvironmentVariables(LoggerFileName);
+
+                //Logger Severity Threshold
+                AppLogger.SeverityThreshold = (LoggerSeverity)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_LOGSEVERITYTHRESHOLD, 2);
+
                 //File Name: if Reg Key Exists alter the method parameter valu
                 CompositionFileName = (string)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_COMPOSITIONFILELOCATION,CompositionFileName);
-                LoggerFileName = (string)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_LOGFILELOCATION, LoggerFileName);
-
+                
                 bool.TryParse((string)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_DECOMPOSEATLOGOFF, "0"),out _decompose_disable);
+
+                AppLogger.WriteLine("Settings Managed by Group Policy", LoggerSeverity.Warning);              
             }
 
             //Set Composition File Name
             _compositionFileName = Environment.ExpandEnvironmentVariables(CompositionFileName);
             //Set Logger
-            FileLogger.FileName = Environment.ExpandEnvironmentVariables(LoggerFileName);
+            AppLogger.FileName = Environment.ExpandEnvironmentVariables(LoggerFileName);
         }
         #endregion
         private bool OpenCompositionFile()
         {
             try
-            {
+            {                
                 //Deserializing from an UNC readonly Path produces unexpected results, so let's create a temporary copy
                 string TempCompositionFileName = Path.GetTempPath() + Guid.NewGuid().ToString() + ".dctmp";
                 File.Copy(_compositionFileName, TempCompositionFileName, true);
                 
                 _composition.Deserialize(TempCompositionFileName);
                 DeleteFile(TempCompositionFileName);
+                
+                AppLogger.WriteLine("Opened Composition Definition File: " + _compositionFileName);
                 return true;
             }
             catch (Exception e)
             {
-                FileLogger.WriteLine("Unable to load Composition File (" + e.Message + ")");
+                AppLogger.WriteLine("Unable to load Composition Definition File " + _compositionFileName, LoggerSeverity.Critical, e );
                 return false;
             }
         }
@@ -118,11 +121,12 @@ namespace ComposerAgent
             try
             {
                 if (File.Exists(_compositionMapFileName)) _composerMap.Deserialize(_compositionMapFileName);
+                AppLogger.WriteLine("Composition Map Loaded");
                 return true;
             }
             catch (Exception e)
             {
-                FileLogger.WriteLine("Unable to load Composition File (" + e.Message + ")");
+                AppLogger.WriteLine("Unable to Load Composition Map",LoggerSeverity.Critical,e);
                 return false;
             }
         }
@@ -131,8 +135,10 @@ namespace ComposerAgent
         public bool Compose()
         {
             bool ret;
-            
-            ret = ComposeShortcuts();
+            ret = OpenCompositionFile();
+            ret = OpenCompositionMapFile();
+
+            if (ret) ret = ComposeShortcuts();
             if (ret) ret = ComposeRegistry();
             
             //Set Composed Flag
@@ -140,6 +146,10 @@ namespace ComposerAgent
             {
                 _composerMap.ComposedStatus = 1;
                 _composerMap.Serialize(_compositionMapFileName);
+                
+                AppLogger.WriteLine("Composition Completed",LoggerSeverity.Info);
+            } else {
+                AppLogger.WriteLine("Composition Error", LoggerSeverity.Critical);
             }
             return ret;
         }
@@ -148,10 +158,6 @@ namespace ComposerAgent
         {
             bool ShortcutExists;
             CompositionElement ce;
-
-            //Load Composer Map
-           
-            //Get Decomposed Flag
             
             //Compose Shortcuts
 
@@ -164,24 +170,29 @@ namespace ComposerAgent
             //Delete Items Deleted            
             //Instead of foreach loop collection in reverse order to avoid eception @removal
             for (int i=_composerMap.ComposedElements.Count -1 ; i>=0; i--)
-            {
+            {                
                 ce = _composerMap.ComposedElements[i];
+                
+                AppLogger.WriteLine("Pre-Checking Shortcuts of Composed Element {" + ce.objectID + "}");
                 
                 ShortcutExists = false;
 
-                string composedPath, composerPath;
-
+                string composedPath, composerPath;                
+                
                 foreach (Shortcut s in _composition.Shortcuts)
                 {                                                            
                     if (s.ObjectID.ToString() == ce.objectID.ToString())
                     {
-                        //Check if Object is renamed or moced to another path
+                        AppLogger.WriteLine("Checking Shortcut \"" + s.DisplayName + "\" {" + s.ObjectID + "}");
+                        //Check if Object is renamed or moved to another path
                         if (ce.Location == CompositionElementLocations.StartMenu)
                         {
+                            AppLogger.WriteLine("Shortcut is Deployed on Start Menu");
                             composedPath = _startMenuPath;
                             composerPath = s.MenuPath;
                         } else
                         {
+                            AppLogger.WriteLine("Shortcut is Deployed on Desktop");
                             composedPath = _desktopPath;
                             composerPath = string.Empty;
                         }
@@ -189,11 +200,12 @@ namespace ComposerAgent
                         //Path on composer and composed must be equal, otherwise delete composed file
                         if (( composerPath + '\\' + s.Filename) != (ce.FilePath) )
                         {
-                            FileLogger.WriteLine("Delete previously composed item " + ce.FilePath);
+                            AppLogger.WriteLine("Composed path and Definition Path Mismatch. Deleting Shortcut File \"" + ce.FilePath + "\"");
                             DeleteFile(composedPath + '\\' + ce.FilePath);
                         } 
                         else 
                         {
+                            AppLogger.WriteLine("Shortcut Already Exists");
                             ShortcutExists = true;
                         }
                                                     
@@ -204,7 +216,7 @@ namespace ComposerAgent
                 if (ShortcutExists == false)
                 {
                     //Delete Shortcut
-                    FileLogger.WriteLine("Deleting shortcut " + ce.FilePath);
+                    AppLogger.WriteLine("Composed Element does not Exists Anymore, Deleting File: \"" + ce.FilePath + "\"");
                     DeleteFile(ce.FilePath);                        
                 }
             }            
@@ -212,16 +224,20 @@ namespace ComposerAgent
             //Clear Composed Elements
             _composerMap.ComposedElements.Clear();
 
+            AppLogger.WriteLine("Composing Shortcuts");
+            
             foreach (Shortcut s in _composition.Shortcuts)
             {
                 if (s.Deploy(_startMenuPath, _desktopPath, _userGroupMembership))
                 {
+                    AppLogger.WriteLine("Deployed Shortcut \"" + s.DisplayName + "\" {" + s.ObjectID + "}");
                     //If Deployed then add to deployed map
                     if (s.PutOnStartMenu) _composerMap.AddItem(s.ObjectID, s.FullPath, CompositionElementLocations.StartMenu);
                     if (s.PutOnDesktop) _composerMap.AddItem(s.ObjectID, s.Filename, CompositionElementLocations.Desktop);
                 } else
                 {
                     //Delete
+                    AppLogger.WriteLine("NOT Deployed Shortcut \"" + s.DisplayName + "\" {" + s.ObjectID + "}");
                     DeleteFile(_startMenuPath + s.FullPath);
                     DeleteFile(_desktopPath + '\\' + s.Filename);
                 }
@@ -238,7 +254,7 @@ namespace ComposerAgent
             } 
             catch (Exception e)
             {
-                FileLogger.WriteLine("Error deleting file.", e);
+                AppLogger.WriteLine("Error deleting file \"" + fileName + "\"", LoggerSeverity.Error, e);
                 return false;
             }
         }
@@ -264,9 +280,13 @@ namespace ComposerAgent
 
             //Set Composed Flag
             if (ret)
-            {
+            {                
                 _composerMap.ComposedStatus = 0;
                 _composerMap.Serialize(_compositionMapFileName);
+                AppLogger.WriteLine("Deomposition Completed", LoggerSeverity.Info);
+            } else
+            {
+                AppLogger.WriteLine("Deomposition Error", LoggerSeverity.Critical);
             }
             return ret;
         }
@@ -279,15 +299,19 @@ namespace ComposerAgent
         /// <returns></returns>
         public bool DecomposeShortcuts()
         {
+            AppLogger.WriteLine("Decomposing Shortcuts");
             //Get Decomposed Flag
             //If Composed then restore Shortcuts                       
             foreach (CompositionElement ce in _composerMap.ComposedElements)
-            {                
+            {
+                AppLogger.WriteLine("Deleting Composed Item {" + ce.objectID + "} " + ce.FilePath);                
                 DeleteFile(ce.FilePath);                 
             }
             _composerMap.ComposedElements.Clear();
 
             RestoreMenuFolder(_backupDirStartMenu, _startMenuPath, true);
+            
+            AppLogger.WriteLine("Shortcut Decomposition Complete");
             
             return true;
         }
@@ -303,10 +327,13 @@ namespace ComposerAgent
         }
 
         private bool BackupMenuFolder(string SourceFolder, string FolderBackupName, bool EmptyDirectoryAfter=true) {
-            bool ret;
+            bool ret;           
             string BackupDir = _appdataDir + "\\" + FolderBackupName;
+            AppLogger.WriteLine("Backing Up Folder " + BackupDir + " to " + FolderBackupName);
             ret = CopyFolder(SourceFolder, BackupDir, true);
-            if (EmptyDirectoryAfter) ret = EmptyDirectory(SourceFolder);
+            if (ret) AppLogger.WriteLine("Backup Successful");
+                else AppLogger.WriteLine("Backup Error");
+            if (EmptyDirectoryAfter) ret = EmptyDirectory(SourceFolder);            
             return ret;
         }
 
@@ -314,7 +341,10 @@ namespace ComposerAgent
         {
             bool ret;
             string BackupDir = _appdataDir + "\\" + FolderBackupName;
+            AppLogger.WriteLine("Restoring Folder " + BackupDir + " to " + DestinationFolder);
             ret = CopyFolder(BackupDir, DestinationFolder, true);
+            if (ret) AppLogger.WriteLine("Restore Successful");
+            else AppLogger.WriteLine("Restore Error");
             if (EmptyDirectoryAfter) ret = EmptyDirectory(DestinationFolder);
             return ret;
         }
@@ -345,7 +375,7 @@ namespace ComposerAgent
                 }
                 catch (Exception ex)
                 {
-                    FileLogger.WriteLine("Error while doing backup of file: " + lFile.FullName + " (" + ex.Message + ")");
+                    AppLogger.WriteLine("Error while doing backup of file: \"" + lFile.FullName + "\"", LoggerSeverity.Error, ex);
                 }
             }
             return true;
@@ -354,7 +384,9 @@ namespace ComposerAgent
         private bool EmptyDirectory(string directory)
         {
 
-            if (!Directory.Exists(directory)) return true;                      
+            if (!Directory.Exists(directory)) return true;
+            
+            AppLogger.WriteLine("Emptying Directory \"" + directory + "\"");
             
             foreach (string dir in Directory.GetDirectories(directory))
             {
@@ -367,7 +399,7 @@ namespace ComposerAgent
                     Directory.Delete(directory);
             } catch (Exception e)
             {
-                FileLogger.WriteLine("Error deleting Directory " + directory, e);
+                AppLogger.WriteLine("Error deleting Directory \"" + directory + "\"", LoggerSeverity.Error, e);
             }
             
             return true;

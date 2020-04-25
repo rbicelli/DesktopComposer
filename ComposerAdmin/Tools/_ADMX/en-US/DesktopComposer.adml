@@ -1,0 +1,53 @@
+<policyDefinitionResources revision="1.0" schemaVersion="1.0">
+  <displayName>
+  </displayName>
+  <description>
+  </description>
+  <resources>
+    <stringTable>
+      <string id="CAT_BAED95A5_B50E_460C_8743_9532B39113B3">Sequence Software</string>
+      <string id="CAT_33502ED5_2204_4960_BF21_0849049D8059">Composer Agent</string>
+      <string id="POL_26DC6CD9_3A31_41CD_92C9_E2EC2EB23919">Composition File Location</string>
+      <string id="POL_26DC6CD9_3A31_41CD_92C9_E2EC2EB23919_Help">This policy settings allows you to manage the Location of Composition File (dcxml).
+Typically you should put it in an UNC path with Read Only Access.
+Environment variable such as %USERNAME% or %USERDOMAIN% are allowed.
+
+e.g.
+\\DOMAIN\NETLOGON\CompositionFiles\CompositionFile.dcxml
+\\FILESERVER\NETLOGON\CompositionFiles\%USERDOMAIN%\CompositionFile.dcxml</string>
+      <string id="POL_544B9A5F_4CE2_4062_A8E2_A2A2FA7D809D">Enable Composition Agent</string>
+      <string id="POL_544B9A5F_4CE2_4062_A8E2_A2A2FA7D809D_Help">This policy settings allows you to manage the Desktop Composer Agent.
+If you enable this policy setting the automatic execution of Composer Agent at User Logon will be enabled.
+
+Note: In order for this policy to work you still have set the Logon Scripts in User Configuration/Windows/Settings/Script (Logon/Logoff),
+It is sufficient to enter the Full Path of the executalble file both in Logon/Logoff (Default is %PROGRAMFILES%\Sequence Software\Composer Agent\ComposerAgent.exe)</string>
+      <string id="POL_DB6FCC79_D623_4994_B4C2_545DC42B3F59">Disable Decomposition at Logoff</string>
+      <string id="POL_DB6FCC79_D623_4994_B4C2_545DC42B3F59_Help">This policy settings allows you to manage the Desktop Composer Agent.
+If you enable this policy setting the automatic execution of Composer Agent at User Logoff will be disabled and the previous state of elements will NOT be restored.
+</string>
+      <string id="POL_47B66F8E_31DD_4DA1_A171_319DC209A8FF">Agent Log File Location</string>
+      <string id="POL_47B66F8E_31DD_4DA1_A171_319DC209A8FF_Help">This policy settings allows you to manage the Location of Composition File (dcxml).
+You should put it in an UNC path Writable by user.
+Environment variable such as %USERNAME% or %USERDOMAIN% are allowed.
+Log Directory MUST Exists.
+
+e.g.
+%TEMP%\ComposerAgent.log
+\\FILESERVER\NETLOGON\Logs\%USERDOMAIN%\%USERNAME%.log</string>
+      <string id="POL_0EF21168_7BB7_4A64_90EC_F633D345D9F9">Agent Log Severity Threshold</string>
+      <string id="ITM_96ABAA3C_8DAB_4FEB_A378_D475CCDA91B5">Debug</string>
+      <string id="ITM_77BD107A_00B0_4552_92FE_0029D7498F00">Information</string>
+      <string id="ITM_04B09BA7_FD0D_462B_9591_E1FD0452810C">Warning</string>
+      <string id="ITM_F007209F_0025_4388_A88B_D7ACAA81BD63">Error</string>
+      <string id="ITM_A89EF3BF_3E4C_4418_AFCB_9D9D87E86603">Critical</string>
+      <string id="POL_0EF21168_7BB7_4A64_90EC_F633D345D9F9_Help">This Policy Allows you to set the logging Threshold of Composer Agent.
+</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="POL_544B9A5F_4CE2_4062_A8E2_A2A2FA7D809D" />
+      <presentation id="POL_0EF21168_7BB7_4A64_90EC_F633D345D9F9">
+        <dropdownList refId="DST_570F6D0D_342A_459E_ADF9_FCF14A55FE2C" defaultItem="2">Log Threshold</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

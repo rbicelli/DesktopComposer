@@ -1,74 +1,83 @@
-﻿using System.IO;
-
+﻿using System;
+using System.IO;
+using System.Runtime.InteropServices;
 
 namespace ComposerAgent
 {
     class Program
     {
+        private static int _exitCode = 1;
+        private static bool _noconsole = false;
         static void Main(string[] args)
-        {
+        {            
+            
+            UtilityArguments arguments = new UtilityArguments(args);
+            
+            _noconsole = (arguments.NoConsole);
 
-            //ConsoleHandler.AllocateConsole();
+            if (_noconsole == false) ConsoleHandler.AllocateConsole();
 
-            UtilityArguments arguments = new UtilityArguments(args);            
-
-            if (arguments.Compose != null)
+            if (arguments.Compose)
             {
-                if (File.Exists(arguments.Compose))
+                if (File.Exists(arguments.Filename) | (arguments.Filename==null))
                 {
                     string desktopPath = (arguments.DesktopPath == null) ? "" : arguments.DesktopPath;
                     string startPath = (arguments.StartMenuPath == null) ? "" : arguments.StartMenuPath;
-                    Compose(arguments.Compose, startPath, desktopPath);
-                    return;
+                    Compose(arguments.Filename, startPath, desktopPath);
+                    AppExit();
                 }
             }
 
-            if (arguments.Decompose != null)
+            if (arguments.Decompose)
             {
-                if (File.Exists(arguments.Decompose))
+                if (File.Exists(arguments.Filename) | (arguments.Filename == null))
                 {
                     string desktopPath = (arguments.DesktopPath == null) ? "" : arguments.DesktopPath;
                     string startPath = (arguments.StartMenuPath == null) ? "" : arguments.StartMenuPath;
-                    Decompose(arguments.Decompose, startPath, desktopPath);
-                    return;
+                    Decompose(arguments.Filename, startPath, desktopPath);
+                    AppExit();
                 }
             }
 
             if (arguments.Install)
             {                
                 Install();
-                return;
+                AppExit();
             }
 
             if (arguments.Uninstall)
             {
                 Uninstall();
-                return;
-            }
+                AppExit();
+            }            
+        }
 
-            //ConsoleHandler.FreeConsole();
+        private static void AppExit()
+        {
+            if (_noconsole==false) ConsoleHandler.FreeConsole();
+            Environment.Exit(_exitCode);
         }
 
         private static void Compose(string FileName, string StartMenuPath, string DesktopPath)
         {
             Composer _lcomposer = new Composer(FileName, StartMenuPath, DesktopPath);
-            _lcomposer.Compose();
+            if (_lcomposer.Compose()) _exitCode = 0;
         }
 
         private static void Decompose(string FileName, string StartMenuPath, string DesktopPath)
         {
             Composer _lcomposer = new Composer(FileName, StartMenuPath, DesktopPath);
-            _lcomposer.Decompose();
+            if (_lcomposer.Decompose()) _exitCode = 0;
         }
 
         private static void Install() {
             AgentInstaller i = new AgentInstaller();
-            i.Install();
+            if (i.Install()) _exitCode = 0;
         }
 
         private static void Uninstall() {
             AgentInstaller i = new AgentInstaller();
-            i.Uninstall();            
+            if (i.Uninstall()) _exitCode = 0;
         }
     }
 }

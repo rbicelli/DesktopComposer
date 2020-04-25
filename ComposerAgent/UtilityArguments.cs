@@ -17,14 +17,24 @@ namespace ComposerAgent
             get { return KeyPresent("uninstall"); }
         }
 
-        public string Compose
+        public bool Compose
         {
-            get { return GetValue("compose"); }
+            get { return KeyPresent("compose"); }
         }
 
-        public string Decompose
+        public bool Decompose
         {
-            get { return GetValue("decompose"); }
+            get { return KeyPresent("decompose"); }
+        }
+
+        public bool NoConsole
+        {
+            get { return KeyPresent("noconsole"); }
+        }
+
+        public string Filename
+        {            
+            get { return GetValue("file"); }
         }
 
         public string DesktopPath
@@ -34,7 +44,7 @@ namespace ComposerAgent
 
         public string StartMenuPath
         {
-            get { return GetValue("startmenudir"); }
+            get { return GetValue("startdir"); }
         }
 
         public UtilityArguments(string[] args) : base(args)

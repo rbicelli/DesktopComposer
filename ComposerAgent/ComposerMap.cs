@@ -140,7 +140,7 @@ namespace ComposerAgent
                     if (rKey!=null) rKey.DeleteValue(ValueName);
                 } catch (Exception e)
                 {
-                    FileLogger.WriteLine("Error: ", e);
+                    AppLogger.WriteLine("Error: ", e);
                 }
             }
             else 
@@ -152,7 +152,7 @@ namespace ComposerAgent
                     Registry.SetValue(registrykey, ValueName, regValue, ValueKind);
                 } catch (Exception e)
                 {
-                    FileLogger.WriteLine("Error: ", e);
+                    AppLogger.WriteLine("Error: ", e);
                 }
             }
             return true;

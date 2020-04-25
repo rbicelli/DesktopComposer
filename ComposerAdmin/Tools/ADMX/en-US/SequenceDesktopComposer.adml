@@ -1,0 +1,58 @@
+<policyDefinitionResources revision="1.0" schemaVersion="1.0">
+  <displayName>
+  </displayName>
+  <description>
+  </description>
+  <resources>
+    <stringTable>
+      <string id="CtCategorySequenceSoftware">Sequence Software</string>
+      <string id="CtSequenceSoftwareComposerAgent">Composer Agent</string>
+      
+	  <string id="ComposerAgentEnable">Enable Composition Agent</string>
+      <string id="ComposerAgentEnable_Help">This policy settings allows you to manage the Desktop Composer Agent.
+If you enable this setting the automatic execution of Composer Agent at User Logon will be enabled.
+
+Note: In order for this policy to work you still have set the Logon Scripts in User Configuration/Windows/Settings/Script (Logon/Logoff),
+It is sufficient to enter the Full Path of the executable file both in Logon/Logoff (Default is %PROGRAMFILES%\Sequence Software\Composer Agent\ComposerAgent.exe), with these arguments:
+- For Logon: -compose
+- For Logoff: -decompose</string>
+	
+	<string id="ComposerAgentFileLocation">Composition File Location</string>
+    <string id="ComposerAgentFileLocation_Help">Specify the Composition File (*.dcxml) location.
+UNC Path and envionment variables are allowed.
+File must be readable by the user.</string>
+
+    <string id="ComposerAgentLogFileLocation">Log File Location</string>
+    <string id="ComposerAgentLogFileLocation_Help">Specify the Composition Log File location.
+UNC Path and envionment variables are allowed.
+File must be writable by the user and container directory must exists.</string>    
+	
+	<string id="ComposerAgentLogThreshold">Log Threshold</string>
+    <string id="ComposerAgentLogThreshold_Help">Specify the Log Threshold.
+Log event with severity below threshold will not be registered to log file.</string>
+	<string id="LogThreshold_Debug">Debug</string>
+	<string id="LogThreshold_Information">Information</string>
+	<string id="LogThreshold_Warning">Warning</string>
+	<string id="LogThreshold_Error">Error</string>
+	<string id="LogThreshold_Critical">Critical</string>	
+	
+	</stringTable>   
+  
+    <presentationTable>     
+      <presentation id="ComposerAgentFileLocation">
+        <textBox refId="ComposerAgentFileLocation">
+          <label>File Name:</label>
+        </textBox>
+      </presentation>
+	   <presentation id="ComposerAgentLogFileLocation">
+        <textBox refId="ComposerAgentLogFileLocation">
+          <label>File Name:</label>
+        </textBox>
+      </presentation>
+	   <presentation id="ComposerAgentLogThreshold">
+        <dropdownList refId="ComposerAgentLogThreshold" noSort="true">Threshold</dropdownList>
+      </presentation>
+    </presentationTable>
+	
+  </resources>
+</policyDefinitionResources>

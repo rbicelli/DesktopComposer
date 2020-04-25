@@ -27,11 +27,11 @@ namespace DesktopComposer
             // examined for files.
             Stack<string> dirs = new Stack<string>(20);
 
-            if (!System.IO.Directory.Exists(root))
+            if (!System.IO.Directory.Exists(root) & (root!=""))
             {
                 throw new ArgumentException();
             }
-            dirs.Push(root);
+            if (root!="") dirs.Push(root);
 
             while (dirs.Count > 0)
             {

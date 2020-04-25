@@ -33,6 +33,9 @@ namespace DesktopComposer.Implementation
         public bool PutOnStartMenu { get; set; }
 
         [XmlAttribute]
+        public bool CheckIfTargetExists { get; set; }
+
+        [XmlAttribute]
         public string TargetPath { get; set; }
 
         [XmlAttribute]
@@ -54,10 +57,10 @@ namespace DesktopComposer.Implementation
         public string Comment { get; set; }
 
         [XmlAttribute]
-        public string IconLocation { get; set; }
+        public string IconLocation { get; set; }       
        
         [XmlIgnore]
-        public Icon IconCacheSmall { get; set; }
+        public Icon IconCacheSmall { get; set; }        
 
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
         [XmlElement("IconCacheSmall")]
@@ -231,9 +234,13 @@ namespace DesktopComposer.Implementation
             bool bDeploy;
             
             bDeploy = IsDeployAllowed(ACLMemberOf);
-            
-            
+                                   
             if (bDeploy == false) return false;
+
+            if (CheckIfTargetExists) //Check if target Exists is flagged, so check. 
+            {
+                if (FileUtils.Exists(Environment.ExpandEnvironmentVariables(TargetPath)) == false) return false;
+            }
 
             //Application
             if (PutOnStartMenu) {

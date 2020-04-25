@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Copyright (C) Riccardo Bicelli - Sequence. All rights reserved.  -->
+<policyDefinitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+ <policyNamespaces>
+    <target prefix="sqdesktopcomposeragent" namespace="Sequence.DesktopComposer.Agent" />
+    <using prefix="windows" namespace="Microsoft.Policies.Windows" />
+ </policyNamespaces>
+ <resources minRequiredRevision="1.0" />
+  <categories>
+    <category name="CtSequenceSoftware" displayName="$(string.CtCategorySequenceSoftware)" />      
+	<category name="CtSequenceSoftwareComposerAgent" displayName="$(string.CtSequenceSoftwareComposerAgent)">
+	<parentCategory ref="CtSequenceSoftware" />
+	</category>
+  </categories>
+   <policies>
+    <policy name="ComposerAgentEnable" class="User" displayName="$(string.ComposerAgentEnable)" explainText="$(string.ComposerAgentEnable_Help)" key="Software\Policies\Sequence Software\Composer Agent" valueName="AgentEnable">
+      <parentCategory ref="CtSequenceSoftwareComposerAgent" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+	  <enabledValue>
+        <decimal value="1" />
+      </enabledValue>
+      <disabledValue>
+        <delete />
+      </disabledValue>
+    </policy>	 
+	
+	<policy name="ComposerAgentFileLocation" class="User" displayName="$(string.ComposerAgentFileLocation)" explainText="$(string.ComposerAgentFileLocation_Help)" presentation="$(presentation.ComposerAgentFileLocation)" key="Software\Policies\Sequence Software\Composer Agent">
+      <parentCategory ref="CtSequenceSoftwareComposerAgent" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <text id="ComposerAgentFileLocation" valueName="CompositionFileLocation" required="true" />
+      </elements>
+    </policy>
+	
+	<policy name="ComposerAgentLogFileLocation" class="User" displayName="$(string.ComposerAgentLogFileLocation)" explainText="$(string.ComposerAgentLogFileLocation_Help)" presentation="$(presentation.ComposerAgentLogFileLocation)" key="Software\Policies\Sequence Software\Composer Agent">
+      <parentCategory ref="CtSequenceSoftwareComposerAgent" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <text id="ComposerAgentLogFileLocation" valueName="AgentLogFileLocation" required="true" />
+      </elements>
+    </policy>
+	
+	 <policy name="ComposerAgentLogThreshold" class="User" displayName="$(string.ComposerAgentLogThreshold)" explainText="$(string.ComposerAgentLogThreshold_Help)" presentation="$(presentation.ComposerAgentLogThreshold)" key="Software\Policies\Sequence Software\Composer Agent">
+      <parentCategory ref="CtSequenceSoftwareComposerAgent" />
+      <supportedOn ref="windows:SUPPORTED_WindowsVista" />
+      <elements>
+        <enum id="ComposerAgentLogThreshold" valueName="AgentLogSeverityThreshold">
+          <item displayName="$(string.LogThreshold_Debug)">
+            <value>
+              <decimal value="0" />
+            </value>
+          </item>
+          <item displayName="$(string.LogThreshold_Information)">
+            <value>
+              <decimal value="1" />
+            </value>
+          </item>
+          <item displayName="$(string.LogThreshold_Warning)">
+            <value>
+              <decimal value="2" />
+            </value>
+          </item>
+          <item displayName="$(string.LogThreshold_Error)">
+            <value>
+              <decimal value="3" />
+            </value>
+          </item>
+		  <item displayName="$(string.LogThreshold_Critical)">
+            <value>
+              <decimal value="4" />
+            </value>
+          </item>
+        </enum>
+      </elements>
+    </policy>
+	
+  </policies>
+</policyDefinitions>
+  
