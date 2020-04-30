@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Le informazioni generali relative a un assembly sono controllate dal seguente 
 // set di attributi. Modificare i valori di questi attributi per modificare le informazioni
 // associate a un assembly.
-[assembly: AssemblyTitle("Shortcut Manager")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Composition Editor")]
+[assembly: AssemblyDescription("This software is at Alpha Stage.\nUse at on your own risk.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sequence Software")]
-[assembly: AssemblyProduct("Shortcuts Manager")]
+[assembly: AssemblyProduct("ComposerAdmin")]
 [assembly: AssemblyCopyright("Copyright ©  2020 Riccardo Bicelli")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

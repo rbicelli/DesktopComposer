@@ -16,19 +16,17 @@ namespace ComposerAgent
         private string _backupDirStartMenu;
         private string _appdataDir;
         private string _compositionMapFileName;
-        private string _compositionFileName;
-
-        private bool _decompose_disable;        
+        private string _compositionFileName;                
 
         private List<string> _userGroupMembership;
+        private bool _isMemberOfDesignatedGroup;
 
         private ComposerMap _composerMap;
 
         //Group Policy Constants
         private const string GPO_AGENT_ROOTKEY = @"HKEY_CURRENT_USER";
         private const string GPO_AGENT_POLICYKEY = @"\Software\Policies\Sequence Software\Composer Agent\";
-        private const string GPO_AGENT_ENABLE = "AgentEnable";
-        private const string GPO_AGENT_DECOMPOSEATLOGOFF = "AgentDecomposeAtLogoffDisable";
+        private const string GPO_AGENT_ENABLE = "AgentEnable";        
         private const string GPO_AGENT_COMPOSITIONFILELOCATION = "CompositionFileLocation";
         private const string GPO_AGENT_LOGFILELOCATION = "AgentLogFileLocation";
         private const string GPO_AGENT_LOGSEVERITYTHRESHOLD = "AgentLogSeverityThreshold";
@@ -44,9 +42,7 @@ namespace ComposerAgent
             //Get Environment Folders
             _appdataDir = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\DesktopComposer\\Agent";
             
-            string LoggerFileName = _appdataDir + "\\Composer.log";
-
-            _userGroupMembership = GetUserMembership();
+            string LoggerFileName = _appdataDir + "\\Composer.log";           
 
             //Create Directories
             if (!Directory.Exists(_appdataDir))
@@ -55,12 +51,12 @@ namespace ComposerAgent
             _compositionMapFileName= _appdataDir + "\\CompositionMap.xml";
             
 
-            if (StartMenuPath == null)
+            if (StartMenuPath == null | StartMenuPath=="")
                 _startMenuPath = System.Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
             else
                 _startMenuPath = StartMenuPath;
 
-            if (DesktopPath == null)
+            if (DesktopPath == null | DesktopPath=="")
                 _desktopPath = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             else
                 _desktopPath = DesktopPath;
@@ -73,7 +69,7 @@ namespace ComposerAgent
             int? isGPOLocked = (int?)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_ENABLE, 0);
             if ( isGPOLocked!=null & isGPOLocked==1)
             {                
-                //If Locked by GPO the Reg Key Exists so it is safe to get values without care of errors
+                //If Locked by GPO the Reg Key Exists so it is safe to get values without taking care of errors
                 //Open Logger Filename
                 LoggerFileName = (string)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_LOGFILELOCATION, LoggerFileName);
                 AppLogger.FileName = Environment.ExpandEnvironmentVariables(LoggerFileName);
@@ -82,9 +78,7 @@ namespace ComposerAgent
                 AppLogger.SeverityThreshold = (LoggerSeverity)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_LOGSEVERITYTHRESHOLD, 2);
 
                 //File Name: if Reg Key Exists alter the method parameter valu
-                CompositionFileName = (string)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_COMPOSITIONFILELOCATION,CompositionFileName);
-                
-                bool.TryParse((string)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_DECOMPOSEATLOGOFF, "0"),out _decompose_disable);
+                CompositionFileName = (string)Registry.GetValue(RegistryKeyFullPath, GPO_AGENT_COMPOSITIONFILELOCATION,CompositionFileName);                                
 
                 AppLogger.WriteLine("Settings Managed by Group Policy", LoggerSeverity.Warning);              
             }
@@ -93,6 +87,9 @@ namespace ComposerAgent
             _compositionFileName = Environment.ExpandEnvironmentVariables(CompositionFileName);
             //Set Logger
             AppLogger.FileName = Environment.ExpandEnvironmentVariables(LoggerFileName);
+
+            //Get User Membership
+            _userGroupMembership = GetUserMembership();
         }
         #endregion
         private bool OpenCompositionFile()
@@ -130,27 +127,33 @@ namespace ComposerAgent
                 return false;
             }
         }
-        
+
 
         public bool Compose()
         {
-            bool ret;
-            ret = OpenCompositionFile();
-            ret = OpenCompositionMapFile();
+            bool ret = false;
 
-            if (ret) ret = ComposeShortcuts();
-            if (ret) ret = ComposeRegistry();
+            if (_isMemberOfDesignatedGroup) { 
+
+                ret = OpenCompositionFile();
+                ret = OpenCompositionMapFile();
+
+                if (ret) ret = ComposeShortcuts();
+                if (ret) ret = ComposeRegistry();
             
-            //Set Composed Flag
-            if (ret)
-            {
-                _composerMap.ComposedStatus = 1;
-                _composerMap.Serialize(_compositionMapFileName);
+                //Set Composed Flag
+                if (ret)
+                {
+                    _composerMap.ComposedStatus = 1;
+                    _composerMap.Serialize(_compositionMapFileName);
                 
-                AppLogger.WriteLine("Composition Completed",LoggerSeverity.Info);
-            } else {
-                AppLogger.WriteLine("Composition Error", LoggerSeverity.Critical);
+                    AppLogger.WriteLine("Composition Completed",LoggerSeverity.Info);
+                } else {
+                    AppLogger.WriteLine("Composition Error", LoggerSeverity.Critical);
+                }
+
             }
+            
             return ret;
         }
 
@@ -273,21 +276,28 @@ namespace ComposerAgent
 
         public bool Decompose()
         {
-            bool ret;
+            bool ret = false;
 
-            ret = DecomposeShortcuts();
-            if (ret) ret = DecomposeRegistry();
-
-            //Set Composed Flag
-            if (ret)
-            {                
-                _composerMap.ComposedStatus = 0;
-                _composerMap.Serialize(_compositionMapFileName);
-                AppLogger.WriteLine("Deomposition Completed", LoggerSeverity.Info);
-            } else
+            if (_isMemberOfDesignatedGroup)
             {
-                AppLogger.WriteLine("Deomposition Error", LoggerSeverity.Critical);
+
+                ret = DecomposeShortcuts();
+                if (ret) ret = DecomposeRegistry();
+
+                //Set Composed Flag
+                if (ret)
+                {
+                    _composerMap.ComposedStatus = 0;
+                    _composerMap.Serialize(_compositionMapFileName);
+                    AppLogger.WriteLine("Decomposition Completed", LoggerSeverity.Info);
+                }
+                else
+                {
+                    AppLogger.WriteLine("Decomposition Error", LoggerSeverity.Critical);
+                }
+
             }
+
             return ret;
         }
 
@@ -407,10 +417,12 @@ namespace ComposerAgent
         #endregion
         private List<string> GetUserMembership()
         {
-            List<string> SIDs=new List<string>();
-            
+            List<string> SIDs=new List<string>();            
+
             IntPtr accountToken = WindowsIdentity.GetCurrent().Token;
             WindowsIdentity windowsIdentity = new WindowsIdentity(accountToken);
+            SecurityIdentifier SIDGroup;
+            string groupName;
 
             //User SID
             SIDs.Add(windowsIdentity.Owner.ToString());
@@ -418,9 +430,32 @@ namespace ComposerAgent
             IdentityReferenceCollection irc = windowsIdentity.Groups;
             foreach (IdentityReference ir in irc)
             {
-                SIDs.Add(ir.Value);
+                groupName = "";
+                
+                SIDGroup = new SecurityIdentifier(ir.Value);
+                SIDs.Add(ir.Value);                                
+                
+                try
+                {
+                    groupName = SIDGroup.Translate(typeof(NTAccount)).Value;
+                    AppLogger.WriteLine("User is member of " + groupName);
+                } catch
+                {
+                    AppLogger.WriteLine("Error translating SID/GroupName");
+                }                               
+                
+                if ( groupName == Environment.MachineName + @"\" + Constants.LOCAL_SECURITYGROUP_NAME )
+                {
+                    AppLogger.WriteLine("Enabling Composition for User");
+                    _isMemberOfDesignatedGroup = true;
+                } 
+
+                SIDGroup = null;
+                
             }
             return SIDs;
         }
+        
+
     }
 }

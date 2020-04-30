@@ -7,16 +7,29 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{46D19B75-D181-46EE-B688-204C5FC19A2E}}
 AppName=Desktop Composer Agent
-AppVersion=1.0
+AppVersion=0.9
 AppPublisher=Sequence Software
 AppPublisherURL=http://www.sequence.it/desktopcomposer
 AppSupportURL=http://www.sequence.it/desktopcomposer
 AppUpdatesURL=http://www.sequence.it/desktopcomposer
 DefaultDirName={commonpf}\Sequence Software\Composer Agent
 DefaultGroupName=Desktop Composer
-OutputBaseFilename=ComposerAgent-Setup
+OutputBaseFilename=ComposerAgentSetup
 Compression=lzma
 SolidCompression=yes
+AppCopyright=Sequence Software 2020
+AllowUNCPath=False
+UninstallDisplayName=Desktop Composer Agent
+UninstallDisplayIcon={uninstallexe}
+VersionInfoVersion=0.9
+VersionInfoCompany=Sequence Software
+VersionInfoDescription=Composition Agent
+VersionInfoTextVersion=0.9-ALPHA
+VersionInfoCopyright=2020 Riccardo Bicelli
+VersionInfoProductName=ComposerAgent
+VersionInfoProductVersion=0.9
+VersionInfoProductTextVersion=0.9-ALPHA
+MinVersion=0,6.0
 
 [Files]
 Source: "..\ComposerAgent\bin\Release\ComposerAgent.exe"; DestDir: "{app}"; Flags: ignoreversion; MinVersion: 0,6.1
@@ -25,7 +38,7 @@ Source: "..\ComposerAgent\bin\Release\IconLib.dll"; DestDir: "{app}"; Flags: ign
 Source: "..\ComposerAgent\bin\Release\IconLib.xml"; DestDir: "{app}"; Flags: ignoreversion
 
 [Run]
-Filename: "{app}\ComposerAgent.exe"; Parameters: "-install -noconsole"; WorkingDir: "{app}"; Flags: postinstall runhidden; Description: "Install Composer Agent"
+Filename: "{app}\ComposerAgent.exe"; Parameters: "-install -noconsole"; WorkingDir: "{app}"; Flags: postinstall runhidden
 
 [UninstallRun]
 Filename: "{app}\ComposerAgent.exe"; Parameters: "-uninstall -noconsole"; WorkingDir: "{app}"; Flags: runhidden

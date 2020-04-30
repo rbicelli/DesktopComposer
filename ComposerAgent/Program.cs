@@ -21,8 +21,8 @@ namespace ComposerAgent
             {
                 if (File.Exists(arguments.Filename) | (arguments.Filename==null))
                 {
-                    string desktopPath = (arguments.DesktopPath == null) ? "" : arguments.DesktopPath;
-                    string startPath = (arguments.StartMenuPath == null) ? "" : arguments.StartMenuPath;
+                    string desktopPath = arguments.DesktopPath;
+                    string startPath = arguments.StartMenuPath;
                     Compose(arguments.Filename, startPath, desktopPath);
                     AppExit();
                 }
@@ -32,8 +32,8 @@ namespace ComposerAgent
             {
                 if (File.Exists(arguments.Filename) | (arguments.Filename == null))
                 {
-                    string desktopPath = (arguments.DesktopPath == null) ? "" : arguments.DesktopPath;
-                    string startPath = (arguments.StartMenuPath == null) ? "" : arguments.StartMenuPath;
+                    string desktopPath = arguments.DesktopPath;
+                    string startPath = arguments.StartMenuPath;
                     Decompose(arguments.Filename, startPath, desktopPath);
                     AppExit();
                 }

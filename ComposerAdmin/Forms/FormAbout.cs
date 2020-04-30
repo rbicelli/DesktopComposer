@@ -15,6 +15,7 @@ namespace ComposerAdmin.Forms
         {
             InitializeComponent();
             this.Text = String.Format(Resources.ABOUT_FORM_ABOUT, AssemblyTitle);
+            this.labelProductTitle.Text = AssemblyTitle;
             this.labelProductName.Text = AssemblyProduct;
             this.labelVersion.Text = String.Format(Resources.ABOUT_LABEL_VERSION, AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;

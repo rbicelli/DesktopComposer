@@ -6,21 +6,31 @@
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{1236C866-B49A-4715-AD91-B89BFB666280}}
-AppName=Shortcuts Manager
-AppVersion=1.0
+AppName=Composition Editor
+AppVersion=0.9
 ;AppVerName=Desktop Composer 1.0
 AppPublisher=Sequence Software
 AppPublisherURL=http://www.sequence.it/desktopcomposer
 AppSupportURL=http://www.sequence.it/desktopcomposer
 AppUpdatesURL=http://www.sequence.it/desktopcomposer
-DefaultDirName={commonpf}\Sequence Software
+DefaultDirName={commonpf}\Sequence Software\ComposerEditor
 DefaultGroupName=Desktop Composer
-OutputBaseFilename=ShortcutsManagerS
+OutputBaseFilename=CompositionEditorSetup
 Compression=lzma
 SolidCompression=yes
 AppCopyright=Sequence Software
 MinVersion=0,6.0
 AllowUNCPath=False
+UninstallDisplayIcon={app}\ComposerAdmin.exe
+UninstallDisplayName=Composition Editor
+VersionInfoVersion=0.9
+VersionInfoCompany=Sequence Software
+VersionInfoDescription=Desktop Composition Editor
+VersionInfoTextVersion=0.9-ALPHA
+VersionInfoCopyright=2020 Riccardo Bicelli
+VersionInfoProductName=ComposerAdmin
+VersionInfoProductVersion=0.9
+VersionInfoProductTextVersion=0.9-ALPHA
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
@@ -39,6 +49,6 @@ Source: "..\ComposerAdmin\bin\Release\Newtonsoft.Json.xml"; DestDir: "{app}"; Fl
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\Shortcuts Manager"; Filename: "{app}\ComposerAdmin.exe"; WorkingDir: "{app}"; IconFilename: "{app}\DesktopComposerAdmin.exe"
-Name: "{commondesktop}\Shortcuts Manager"; Filename: "{app}\ComposerAdmin.exe"; Tasks: desktopicon
+Name: "{group}\Composition Editor"; Filename: "{app}\ComposerAdmin.exe"; WorkingDir: "{app}"; IconFilename: "{app}\ComposerAdmin.exe"; IconIndex: 0
+Name: "{commondesktop}\Composition Editor"; Filename: "{app}\ComposerAdmin.exe"; IconFilename: "{app}\ComposerAdmin.exe"; IconIndex: 0; Tasks: desktopicon
 Name: "{group}\ADMX Templates Folder"; Filename: "{app}\Tools\ADMX"; WorkingDir: "{app}"

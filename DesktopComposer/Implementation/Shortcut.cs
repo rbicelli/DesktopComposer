@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.IconLib;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 using DesktopComposer.Interfaces;
-using IconLib;
 using IWshRuntimeLibrary;
 
-namespace DesktopComposer.Implementation 
+namespace DesktopComposer.Implementation
 {
     public class Shortcut : IShortcut
     {        
@@ -250,7 +247,13 @@ namespace DesktopComposer.Implementation
             //Desktop
             if (PutOnDesktop)
             {
-                SaveShortcut(DesktopPath + '\\' + DisplayName + ".lnk");                
+                try
+                {
+                    SaveShortcut(DesktopPath + '\\' + DisplayName + ".lnk");
+                } catch
+                {
+                    return false;
+                }
             }
 
             return true;
@@ -276,7 +279,7 @@ namespace DesktopComposer.Implementation
             if (StartMenuFullPath!="") { 
                 if (!Directory.Exists(StartMenuFullPath)) Directory.CreateDirectory(StartMenuFullPath);
             }
-            
+                        
             WinShortcut.Save();            
         }
                

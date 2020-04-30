@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Desktop Composition Agent")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sequence Software")]
-[assembly: AssemblyProduct("ComposerAgent")]
+[assembly: AssemblyProduct("Composer Agent")]
 [assembly: AssemblyCopyright("Copyright © 2020 Riccardo Bicelli")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // È possibile specificare tutti i valori oppure impostare valori predefiniti per i numeri relativi alla revisione e alla build
 // usando l'asterisco '*' come illustrato di seguito:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.9.0.1")]
+[assembly: AssemblyFileVersion("0.9.0.1")]

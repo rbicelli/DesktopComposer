@@ -29,7 +29,7 @@ File must be writable by the user and container directory must exists.</string>
 	
 	<string id="ComposerAgentLogThreshold">Log Threshold</string>
     <string id="ComposerAgentLogThreshold_Help">Specify the Log Threshold.
-Log event with severity below threshold will not be registered to log file.</string>
+Events with severity below threshold will not be recorded to log file.</string>
 	<string id="LogThreshold_Debug">Debug</string>
 	<string id="LogThreshold_Information">Information</string>
 	<string id="LogThreshold_Warning">Warning</string>

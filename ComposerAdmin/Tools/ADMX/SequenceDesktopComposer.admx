@@ -3,13 +3,13 @@
 <policyDefinitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
  <policyNamespaces>
     <target prefix="sqdesktopcomposeragent" namespace="Sequence.DesktopComposer.Agent" />
-    <using prefix="windows" namespace="Microsoft.Policies.Windows" />
+    <using prefix="sequence" namespace="Sequence.Policies.Common" />
+	<using prefix="windows" namespace="Microsoft.Policies.Windows" />
  </policyNamespaces>
  <resources minRequiredRevision="1.0" />
   <categories>
-    <category name="CtSequenceSoftware" displayName="$(string.CtCategorySequenceSoftware)" />      
-	<category name="CtSequenceSoftwareComposerAgent" displayName="$(string.CtSequenceSoftwareComposerAgent)">
-	<parentCategory ref="CtSequenceSoftware" />
+    <category name="CtSequenceSoftwareComposerAgent" displayName="$(string.CtSequenceSoftwareComposerAgent)">
+	<parentCategory ref="sequence:CtSequenceSoftware" />
 	</category>
   </categories>
    <policies>
