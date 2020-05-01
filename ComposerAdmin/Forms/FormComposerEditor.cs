@@ -20,8 +20,7 @@ namespace ComposerAdmin.Forms
 
         private string _fileName;
         private string _windowTitle;
-
-        private RegTweakDefinitions _regTweakDefs;
+        
         public FormComposerEditor()
         {
             InitializeComponent();
@@ -36,9 +35,7 @@ namespace ComposerAdmin.Forms
            if (PromptForSave())
             {
                 _dComposition = new Composition();
-                StartEditor.Shortcuts = _dComposition.Shortcuts;
-                _dComposition.RegTweaks.Sync(_regTweakDefs);
-                rTweaks.RegTweakDefinitions = _regTweakDefs;
+                StartEditor.Shortcuts = _dComposition.Shortcuts;                
                 SetWindowTitle();
             }
         }
@@ -60,8 +57,7 @@ namespace ComposerAdmin.Forms
         private void loadFactorySettings()
         {
             string factorySettingsFile = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Resources\\FactoryDefaults.json";
-            string input = File.ReadAllText(factorySettingsFile);            
-            _regTweakDefs = JsonConvert.DeserializeObject<RegTweakDefinitions>(input);
+            string input = File.ReadAllText(factorySettingsFile);                        
         }
               
         private string promptSave(string FileName=null)
@@ -140,9 +136,7 @@ namespace ComposerAdmin.Forms
                             if (_dComposition == null) _dComposition = new Composition();
                             if (_dComposition.Deserialize(_fileName))
                             {                            
-                                StartEditor.Shortcuts = _dComposition.Shortcuts;
-                                _dComposition.RegTweaks.Sync(_regTweakDefs);
-                                rTweaks.Render();
+                                StartEditor.Shortcuts = _dComposition.Shortcuts;                                
                             }
 
                             this.Cursor = prevCursor;

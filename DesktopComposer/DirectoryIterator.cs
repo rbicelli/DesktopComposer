@@ -78,6 +78,12 @@ namespace DesktopComposer
                     Console.WriteLine(e.Message);
                     continue;
                 }
+
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    continue;
+                }
                 // Perform the required action on each file here.
                 // Modify this block to perform your required task.
                 foreach (string file in files)

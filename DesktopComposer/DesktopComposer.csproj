@@ -50,15 +50,9 @@
     <Compile Include="Implementation\ACL.cs" />
     <Compile Include="Implementation\ACLs.cs" />
     <Compile Include="Implementation\Composition.cs" />
-    <Compile Include="Implementation\RegTweak.cs" />
-    <Compile Include="Implementation\RegTweakDefinition.cs" />
-    <Compile Include="Implementation\RegTweakDefinitions.cs" />
-    <Compile Include="Implementation\RegTweaks.cs" />
     <Compile Include="Implementation\Shortcut.cs" />
     <Compile Include="Implementation\Shortcuts.cs" />
     <Compile Include="Interfaces\IACL.cs" />
-    <Compile Include="Interfaces\IRegTweak.cs" />
-    <Compile Include="Interfaces\IRegTweakDefinition.cs" />
     <Compile Include="Interfaces\IShortcut.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShellIcon.cs" />

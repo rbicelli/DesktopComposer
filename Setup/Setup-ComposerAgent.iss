@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{46D19B75-D181-46EE-B688-204C5FC19A2E}}
 AppName=Desktop Composer Agent
-AppVersion=0.9
+AppVersion=0.9.1
 AppPublisher=Sequence Software
 AppPublisherURL=http://www.sequence.it/desktopcomposer
 AppSupportURL=http://www.sequence.it/desktopcomposer
@@ -21,7 +21,7 @@ AppCopyright=Sequence Software 2020
 AllowUNCPath=False
 UninstallDisplayName=Desktop Composer Agent
 UninstallDisplayIcon={uninstallexe}
-VersionInfoVersion=0.9
+VersionInfoVersion=0.9.1
 VersionInfoCompany=Sequence Software
 VersionInfoDescription=Composition Agent
 VersionInfoTextVersion=0.9-ALPHA

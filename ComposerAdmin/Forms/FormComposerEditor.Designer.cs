@@ -30,11 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormComposerEditor));
-            this.TabMain = new System.Windows.Forms.TabControl();
-            this.tabPMenuEditor = new System.Windows.Forms.TabPage();
-            this.StartEditor = new ComposerAdmin.Forms.StartMenuEditorControl();
-            this.tabPDesktopOptions = new System.Windows.Forms.TabPage();
-            this.rTweaks = new ComposerAdmin.Forms.RegTweaksControl();
             this.mStripMain = new System.Windows.Forms.MenuStrip();
             this.miFile = new System.Windows.Forms.ToolStripMenuItem();
             this.miFileNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,48 +47,10 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusDisplay = new System.Windows.Forms.ToolStripStatusLabel();
             this.TimerToolstripUpdate = new System.Windows.Forms.Timer(this.components);
-            this.TabMain.SuspendLayout();
-            this.tabPMenuEditor.SuspendLayout();
-            this.tabPDesktopOptions.SuspendLayout();
+            this.StartEditor = new ComposerAdmin.Forms.StartMenuEditorControl();
             this.mStripMain.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // TabMain
-            // 
-            this.TabMain.Controls.Add(this.tabPMenuEditor);
-            this.TabMain.Controls.Add(this.tabPDesktopOptions);
-            resources.ApplyResources(this.TabMain, "TabMain");
-            this.TabMain.Name = "TabMain";
-            this.TabMain.SelectedIndex = 0;
-            // 
-            // tabPMenuEditor
-            // 
-            this.tabPMenuEditor.Controls.Add(this.StartEditor);
-            resources.ApplyResources(this.tabPMenuEditor, "tabPMenuEditor");
-            this.tabPMenuEditor.Name = "tabPMenuEditor";
-            this.tabPMenuEditor.UseVisualStyleBackColor = true;
-            // 
-            // StartEditor
-            // 
-            resources.ApplyResources(this.StartEditor, "StartEditor");
-            this.StartEditor.Name = "StartEditor";
-            this.StartEditor.Shortcuts = null;
-            this.StartEditor.DataChangedByUser += new System.EventHandler(this.StartEditor_OnDataChanged);
-            // 
-            // tabPDesktopOptions
-            // 
-            this.tabPDesktopOptions.Controls.Add(this.rTweaks);
-            resources.ApplyResources(this.tabPDesktopOptions, "tabPDesktopOptions");
-            this.tabPDesktopOptions.Name = "tabPDesktopOptions";
-            this.tabPDesktopOptions.UseVisualStyleBackColor = true;
-            // 
-            // rTweaks
-            // 
-            resources.ApplyResources(this.rTweaks, "rTweaks");
-            this.rTweaks.Name = "rTweaks";
-            this.rTweaks.RegTweakDefinitions = null;
-            this.rTweaks.DataChangedByUser += new System.EventHandler(this.StartEditor_OnDataChanged);
             // 
             // mStripMain
             // 
@@ -208,19 +165,22 @@
             this.TimerToolstripUpdate.Interval = 5000;
             this.TimerToolstripUpdate.Tick += new System.EventHandler(this.TimerToolstripUpdate_Tick);
             // 
+            // StartEditor
+            // 
+            resources.ApplyResources(this.StartEditor, "StartEditor");
+            this.StartEditor.Name = "StartEditor";
+            this.StartEditor.Shortcuts = null;
+            // 
             // FormComposerEditor
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.TabMain);
+            this.Controls.Add(this.StartEditor);
             this.Controls.Add(this.mStripMain);
             this.Controls.Add(this.statusStrip1);
             this.MainMenuStrip = this.mStripMain;
             this.Name = "FormComposerEditor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_OnClosing);
-            this.TabMain.ResumeLayout(false);
-            this.tabPMenuEditor.ResumeLayout(false);
-            this.tabPDesktopOptions.ResumeLayout(false);
             this.mStripMain.ResumeLayout(false);
             this.mStripMain.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -231,10 +191,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TabControl TabMain;
-        private System.Windows.Forms.TabPage tabPMenuEditor;
-        private System.Windows.Forms.TabPage tabPDesktopOptions;
         private System.Windows.Forms.MenuStrip mStripMain;
         private System.Windows.Forms.ToolStripMenuItem miFile;
         private System.Windows.Forms.ToolStripMenuItem miFileNew;
@@ -243,16 +199,15 @@
         private System.Windows.Forms.ToolStripMenuItem miFileSaveAs;
         private System.Windows.Forms.ToolStripMenuItem miStart;
         private System.Windows.Forms.ToolStripMenuItem miStartGetFromDir;
-        private StartMenuEditorControl StartEditor;
         private System.Windows.Forms.ToolStripMenuItem miImportFromLocalComputerStartMenu;
         private System.Windows.Forms.ToolStripMenuItem miImportFromNetworkComputerStartMenu;
         private System.Windows.Forms.ToolStripMenuItem miImportFromFolder;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel StatusDisplay;
         private System.Windows.Forms.Timer TimerToolstripUpdate;
-        private RegTweaksControl rTweaks;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem tsMenuHelp;
         private System.Windows.Forms.ToolStripMenuItem mniHelpAbout;
+        private StartMenuEditorControl StartEditor;
     }
 }

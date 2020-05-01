@@ -138,8 +138,7 @@ namespace ComposerAgent
                 ret = OpenCompositionFile();
                 ret = OpenCompositionMapFile();
 
-                if (ret) ret = ComposeShortcuts();
-                if (ret) ret = ComposeRegistry();
+                if (ret) ret = ComposeShortcuts();                
             
                 //Set Composed Flag
                 if (ret)
@@ -260,19 +259,7 @@ namespace ComposerAgent
                 AppLogger.WriteLine("Error deleting file \"" + fileName + "\"", LoggerSeverity.Error, e);
                 return false;
             }
-        }
-        public bool ComposeRegistry()
-        {
-            foreach (RegTweak tweak in _composition.RegTweaks)
-            {
-                // Write to registry
-                if (tweak.SetRegistryValue())
-                {
-                    _composerMap.AddRegItem(tweak.UniqueKeyName, tweak.ValueType, tweak.GetRootKey(), tweak.SubKey, tweak.ValueName, tweak.RestoreValue);
-                }
-            }
-            return true;
-        }
+        }       
 
         public bool Decompose()
         {
@@ -280,9 +267,8 @@ namespace ComposerAgent
 
             if (_isMemberOfDesignatedGroup)
             {
-
-                ret = DecomposeShortcuts();
-                if (ret) ret = DecomposeRegistry();
+                ret = OpenCompositionMapFile();
+                ret = DecomposeShortcuts();                
 
                 //Set Composed Flag
                 if (ret)
@@ -303,7 +289,7 @@ namespace ComposerAgent
 
         /// <summary>
         /// Decomposition of Shortcuts
-        /// Currently runs decomposition only if previous composition has occoured, in order non to restore an empty start menu.
+        /// Currently runs decomposition only if previous composition has occoured, in order not to restore an empty start menu.
         /// </summary>
         /// <param name="force"></param>
         /// <returns></returns>
@@ -312,10 +298,22 @@ namespace ComposerAgent
             AppLogger.WriteLine("Decomposing Shortcuts");
             //Get Decomposed Flag
             //If Composed then restore Shortcuts                       
+            string basePath;
             foreach (CompositionElement ce in _composerMap.ComposedElements)
-            {
-                AppLogger.WriteLine("Deleting Composed Item {" + ce.objectID + "} " + ce.FilePath);                
-                DeleteFile(ce.FilePath);                 
+            {                
+                switch (ce.Location)
+                {
+                    case CompositionElementLocations.Desktop:
+                        basePath = _desktopPath;
+                        break;
+                    case CompositionElementLocations.StartMenu:
+                    default:
+                        basePath = _startMenuPath;
+                        break;
+                }
+                
+                AppLogger.WriteLine("Deleting Composed Item {" + ce.objectID + "} " + basePath + ce.FilePath);                
+                DeleteFile(basePath + ce.FilePath);                 
             }
             _composerMap.ComposedElements.Clear();
 
@@ -386,26 +384,33 @@ namespace ComposerAgent
                 catch (Exception ex)
                 {
                     AppLogger.WriteLine("Error while doing backup of file: \"" + lFile.FullName + "\"", LoggerSeverity.Error, ex);
+                    continue;
                 }
             }
             return true;
         }
 
-        private bool EmptyDirectory(string directory)
+        private bool EmptyDirectory(string directory, bool isFirst=true)
         {
 
             if (!Directory.Exists(directory)) return true;
             
             AppLogger.WriteLine("Emptying Directory \"" + directory + "\"");
             
-            foreach (string dir in Directory.GetDirectories(directory))
+            try { 
+                foreach (string dir in Directory.GetDirectories(directory))
+                    {
+                        EmptyDirectory(dir, false);                
+                    }
+            } catch(Exception e)
             {
-                EmptyDirectory(dir);                
+                //Probably a Junction Point
+                AppLogger.WriteLine("Error Getting Directory");
             }
 
             try
             {
-                if (Directory.GetFiles(directory).Length == 0)
+                if ((isFirst==false) & (Directory.GetFiles(directory).Length == 0))
                     Directory.Delete(directory);
             } catch (Exception e)
             {
@@ -442,6 +447,7 @@ namespace ComposerAgent
                 } catch
                 {
                     AppLogger.WriteLine("Error translating SID/GroupName");
+                    continue;
                 }                               
                 
                 if ( groupName == Environment.MachineName + @"\" + Constants.LOCAL_SECURITYGROUP_NAME )

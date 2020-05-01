@@ -12,23 +12,16 @@ namespace DesktopComposer.Implementation
 {
     public class Composition
     {
-        private Shortcuts _shortcuts;
-        private RegTweaks _regtweaks;
+        private Shortcuts _shortcuts;        
         
         public Shortcuts Shortcuts
         {
             get => _shortcuts;            
         }
 
-        public RegTweaks RegTweaks
-        {
-            get => _regtweaks;
-        }
-
         public Composition()
         {
-            _shortcuts = new Shortcuts();
-            _regtweaks = new RegTweaks();
+            _shortcuts = new Shortcuts();            
         }
 
         public void LoadShortcutsFromPath(string path)
@@ -66,8 +59,7 @@ namespace DesktopComposer.Implementation
                 // Call the Deserialize method to restore the object's state.
                 subReq = (Composition)serializer.Deserialize(reader);
             }
-                this._shortcuts = subReq.Shortcuts;
-                this._regtweaks = subReq.RegTweaks;
+                this._shortcuts = subReq.Shortcuts;                
                 return true;
             }
             catch(Exception e)

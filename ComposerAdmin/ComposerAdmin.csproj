@@ -91,18 +91,6 @@
     <Compile Include="Forms\FormShortcutProperties.Designer.cs">
       <DependentUpon>FormShortcutProperties.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\RegTweakItemControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\RegTweakItemControl.Designer.cs">
-      <DependentUpon>RegTweakItemControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\RegTweaksControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\RegTweaksControl.Designer.cs">
-      <DependentUpon>RegTweaksControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\StartMenuEditorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -128,12 +116,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormShortcutProperties.resx">
       <DependentUpon>FormShortcutProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\RegTweakItemControl.resx">
-      <DependentUpon>RegTweakItemControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\RegTweaksControl.resx">
-      <DependentUpon>RegTweaksControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\StartMenuEditorControl.resx">
       <DependentUpon>StartMenuEditorControl.cs</DependentUpon>

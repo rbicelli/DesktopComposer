@@ -117,141 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="StartEditor.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="StartEditor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="StartEditor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>875, 511</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="StartEditor.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;StartEditor.Name" xml:space="preserve">
-    <value>StartEditor</value>
-  </data>
-  <data name="&gt;&gt;StartEditor.Type" xml:space="preserve">
-    <value>ComposerAdmin.Forms.StartMenuEditorControl, ComposerAdmin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;StartEditor.Parent" xml:space="preserve">
-    <value>tabPMenuEditor</value>
-  </data>
-  <data name="&gt;&gt;StartEditor.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tabPMenuEditor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPMenuEditor.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPMenuEditor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>881, 517</value>
-  </data>
-  <data name="tabPMenuEditor.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPMenuEditor.Text" xml:space="preserve">
-    <value>Start Menu Layout Editor</value>
-  </data>
-  <data name="&gt;&gt;tabPMenuEditor.Name" xml:space="preserve">
-    <value>tabPMenuEditor</value>
-  </data>
-  <data name="&gt;&gt;tabPMenuEditor.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPMenuEditor.Parent" xml:space="preserve">
-    <value>TabMain</value>
-  </data>
-  <data name="&gt;&gt;tabPMenuEditor.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="rTweaks.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="rTweaks.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="rTweaks.Size" type="System.Drawing.Size, System.Drawing">
-    <value>875, 511</value>
-  </data>
-  <data name="rTweaks.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;rTweaks.Name" xml:space="preserve">
-    <value>rTweaks</value>
-  </data>
-  <data name="&gt;&gt;rTweaks.Type" xml:space="preserve">
-    <value>ComposerAdmin.Forms.RegTweaksControl, ComposerAdmin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;rTweaks.Parent" xml:space="preserve">
-    <value>tabPDesktopOptions</value>
-  </data>
-  <data name="&gt;&gt;rTweaks.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tabPDesktopOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPDesktopOptions.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPDesktopOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>881, 517</value>
-  </data>
-  <data name="tabPDesktopOptions.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tabPDesktopOptions.Text" xml:space="preserve">
-    <value>Start Menu and Taskbar Options</value>
-  </data>
-  <data name="&gt;&gt;tabPDesktopOptions.Name" xml:space="preserve">
-    <value>tabPDesktopOptions</value>
-  </data>
-  <data name="&gt;&gt;tabPDesktopOptions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPDesktopOptions.Parent" xml:space="preserve">
-    <value>TabMain</value>
-  </data>
-  <data name="&gt;&gt;tabPDesktopOptions.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="TabMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="TabMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 27</value>
-  </data>
-  <data name="TabMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>889, 543</value>
-  </data>
-  <data name="TabMain.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;TabMain.Name" xml:space="preserve">
-    <value>TabMain</value>
-  </data>
-  <data name="&gt;&gt;TabMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabMain.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;TabMain.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <metadata name="mStripMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="miFileNew.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>CTRL+N</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="miFileNew.Size" type="System.Drawing.Size, System.Drawing">
     <value>226, 22</value>
   </data>
@@ -342,6 +215,7 @@
   <data name="mStripMain.Size" type="System.Drawing.Size, System.Drawing">
     <value>889, 24</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="mStripMain.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
@@ -393,6 +267,30 @@
   <metadata name="TimerToolstripUpdate.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>248, 17</value>
   </metadata>
+  <data name="StartEditor.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="StartEditor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 27</value>
+  </data>
+  <data name="StartEditor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>889, 543</value>
+  </data>
+  <data name="StartEditor.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;StartEditor.Name" xml:space="preserve">
+    <value>StartEditor</value>
+  </data>
+  <data name="&gt;&gt;StartEditor.Type" xml:space="preserve">
+    <value>ComposerAdmin.Forms.StartMenuEditorControl, ComposerAdmin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;StartEditor.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;StartEditor.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
