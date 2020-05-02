@@ -28,14 +28,14 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelProductName = new System.Windows.Forms.Label();
+            this.labelProductTitle = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.labelCopyright = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBoxDescription1 = new System.Windows.Forms.TextBox();
             this.okButton = new System.Windows.Forms.Button();
-            this.labelProductTitle = new System.Windows.Forms.Label();
-            this.labelProductName = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -51,8 +51,27 @@
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(1, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(447, 112);
+            this.panel1.Size = new System.Drawing.Size(380, 112);
             this.panel1.TabIndex = 1;
+            // 
+            // labelProductName
+            // 
+            this.labelProductName.AutoSize = true;
+            this.labelProductName.Location = new System.Drawing.Point(128, 28);
+            this.labelProductName.Name = "labelProductName";
+            this.labelProductName.Size = new System.Drawing.Size(67, 13);
+            this.labelProductName.TabIndex = 27;
+            this.labelProductName.Text = "Product Title";
+            // 
+            // labelProductTitle
+            // 
+            this.labelProductTitle.AutoSize = true;
+            this.labelProductTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProductTitle.Location = new System.Drawing.Point(128, 9);
+            this.labelProductTitle.Name = "labelProductTitle";
+            this.labelProductTitle.Size = new System.Drawing.Size(80, 13);
+            this.labelProductTitle.TabIndex = 26;
+            this.labelProductTitle.Text = "Product Title";
             // 
             // labelVersion
             // 
@@ -99,7 +118,7 @@
             this.textBoxDescription1.Name = "textBoxDescription1";
             this.textBoxDescription1.ReadOnly = true;
             this.textBoxDescription1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxDescription1.Size = new System.Drawing.Size(442, 75);
+            this.textBoxDescription1.Size = new System.Drawing.Size(380, 75);
             this.textBoxDescription1.TabIndex = 27;
             this.textBoxDescription1.TabStop = false;
             this.textBoxDescription1.Text = "Descrizione";
@@ -107,37 +126,18 @@
             // okButton
             // 
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.okButton.Location = new System.Drawing.Point(368, 199);
+            this.okButton.Location = new System.Drawing.Point(306, 199);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 28;
             this.okButton.Text = "&OK";
             this.okButton.UseVisualStyleBackColor = true;
             // 
-            // labelProductTitle
-            // 
-            this.labelProductTitle.AutoSize = true;
-            this.labelProductTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelProductTitle.Location = new System.Drawing.Point(128, 9);
-            this.labelProductTitle.Name = "labelProductTitle";
-            this.labelProductTitle.Size = new System.Drawing.Size(80, 13);
-            this.labelProductTitle.TabIndex = 26;
-            this.labelProductTitle.Text = "Product Title";
-            // 
-            // labelProductName
-            // 
-            this.labelProductName.AutoSize = true;
-            this.labelProductName.Location = new System.Drawing.Point(128, 28);
-            this.labelProductName.Name = "labelProductName";
-            this.labelProductName.Size = new System.Drawing.Size(67, 13);
-            this.labelProductName.TabIndex = 27;
-            this.labelProductName.Text = "Product Title";
-            // 
             // FormAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 229);
+            this.ClientSize = new System.Drawing.Size(383, 229);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.textBoxDescription1);
             this.Controls.Add(this.panel1);

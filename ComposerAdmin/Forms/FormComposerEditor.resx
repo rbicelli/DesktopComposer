@@ -194,9 +194,6 @@
   <data name="miStart.Text" xml:space="preserve">
     <value>S&amp;tart Menu</value>
   </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>12, 20</value>
-  </data>
   <data name="mniHelpAbout.Size" type="System.Drawing.Size, System.Drawing">
     <value>107, 22</value>
   </data>
@@ -232,7 +229,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;mStripMain.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 17</value>
@@ -262,19 +259,121 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <metadata name="TimerToolstripUpdate.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>248, 17</value>
   </metadata>
+  <metadata name="tsButtons.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>418, 17</value>
+  </metadata>
+  <data name="tsbFileNew.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tsbFileNew.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tsbFileNew.Text" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="tsbFileOpen.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tsbFileOpen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tsbFileOpen.Text" xml:space="preserve">
+    <value>&amp;Open</value>
+  </data>
+  <data name="tsbFileSave.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tsbFileSave.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tsbFileSave.Text" xml:space="preserve">
+    <value>&amp;Save</value>
+  </data>
+  <data name="tsbSaveAs.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tsbSaveAs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tsbSaveAs.Text" xml:space="preserve">
+    <value>Save &amp;as..</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 25</value>
+  </data>
+  <data name="tsbImportLocalStartMenu.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tsbImportLocalStartMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tsbImportLocalStartMenu.Text" xml:space="preserve">
+    <value>Import Local Start Menu</value>
+  </data>
+  <data name="tsbImportLocalStartMenu.ToolTipText" xml:space="preserve">
+    <value>Import Shortcuts From Local Start Menu</value>
+  </data>
+  <data name="tsbImportNetworkComputer.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tsbImportNetworkComputer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tsbImportNetworkComputer.Text" xml:space="preserve">
+    <value>toolStripButton1</value>
+  </data>
+  <data name="tsbImportNetworkComputer.ToolTipText" xml:space="preserve">
+    <value>Import Shortcuts From Computer in Local Network</value>
+  </data>
+  <data name="tsbImportFolder.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tsbImportFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tsbImportFolder.Text" xml:space="preserve">
+    <value>tsbImportFolder</value>
+  </data>
+  <data name="tsbImportFolder.ToolTipText" xml:space="preserve">
+    <value>Import Shortcuts From Folder</value>
+  </data>
+  <data name="tsButtons.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 27</value>
+  </data>
+  <data name="tsButtons.Size" type="System.Drawing.Size, System.Drawing">
+    <value>889, 25</value>
+  </data>
+  <data name="tsButtons.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="tsButtons.Text" xml:space="preserve">
+    <value>Main Toolbar</value>
+  </data>
+  <data name="&gt;&gt;tsButtons.Name" xml:space="preserve">
+    <value>tsButtons</value>
+  </data>
+  <data name="&gt;&gt;tsButtons.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsButtons.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tsButtons.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="StartEditor.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="StartEditor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 27</value>
+    <value>3, 52</value>
   </data>
   <data name="StartEditor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>889, 543</value>
+    <value>889, 518</value>
   </data>
   <data name="StartEditor.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -283,7 +382,7 @@
     <value>StartEditor</value>
   </data>
   <data name="&gt;&gt;StartEditor.Type" xml:space="preserve">
-    <value>ComposerAdmin.Forms.StartMenuEditorControl, ComposerAdmin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ComposerAdmin.Forms.StartMenuEditorControl, ComposerAdmin, Version=0.9.2.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;StartEditor.Parent" xml:space="preserve">
     <value>$this</value>
@@ -757,12 +856,6 @@
   <data name="&gt;&gt;miImportFromFolder.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
-    <value>toolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;tsMenuHelp.Name" xml:space="preserve">
     <value>tsMenuHelp</value>
   </data>
@@ -786,6 +879,54 @@
   </data>
   <data name="&gt;&gt;TimerToolstripUpdate.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsbFileNew.Name" xml:space="preserve">
+    <value>tsbFileNew</value>
+  </data>
+  <data name="&gt;&gt;tsbFileNew.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsbFileOpen.Name" xml:space="preserve">
+    <value>tsbFileOpen</value>
+  </data>
+  <data name="&gt;&gt;tsbFileOpen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsbFileSave.Name" xml:space="preserve">
+    <value>tsbFileSave</value>
+  </data>
+  <data name="&gt;&gt;tsbFileSave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsbSaveAs.Name" xml:space="preserve">
+    <value>tsbSaveAs</value>
+  </data>
+  <data name="&gt;&gt;tsbSaveAs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsbImportLocalStartMenu.Name" xml:space="preserve">
+    <value>tsbImportLocalStartMenu</value>
+  </data>
+  <data name="&gt;&gt;tsbImportLocalStartMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsbImportNetworkComputer.Name" xml:space="preserve">
+    <value>tsbImportNetworkComputer</value>
+  </data>
+  <data name="&gt;&gt;tsbImportNetworkComputer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsbImportFolder.Name" xml:space="preserve">
+    <value>tsbImportFolder</value>
+  </data>
+  <data name="&gt;&gt;tsbImportFolder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormComposerEditor</value>

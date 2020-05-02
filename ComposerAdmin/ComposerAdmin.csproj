@@ -39,9 +39,6 @@
     <Reference Include="ActiveDirectoryObjectPicker, Version=3.0.4.0, Culture=neutral, PublicKeyToken=515ab092c8839750, processorArchitecture=MSIL">
       <HintPath>packages\Tulpep.ActiveDirectoryObjectPicker.3.0.4\lib\net40\ActiveDirectoryObjectPicker.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -99,6 +96,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Resources\folder_page.png" />
+    <None Include="Resources\new.png" />
+    <None Include="Resources\folder_link.png" />
     <EmbeddedResource Include="Forms\ACLEditorControl.resx">
       <DependentUpon>ACLEditorControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -142,10 +142,10 @@
     </Compile>
     <None Include="Resources\ApplicationLogo.png" />
     <None Include="Resources\app_icon_256.png" />
-    <Content Include="Resources\FactoryDefaults.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="Resources\FactoryDefaults - Copia.json" />
+    <None Include="Resources\computer_go.png" />
+    <None Include="Resources\computer_link.png" />
+    <None Include="Resources\disk.png" />
+    <None Include="Resources\drive_disk.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesktopComposer\DesktopComposer.csproj">

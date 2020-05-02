@@ -461,8 +461,20 @@ namespace ComposerAdmin.Forms
         private void tvDragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                Console.WriteLine("File drag");                
-                e.Effect = e.AllowedEffect;
+            {
+                Console.WriteLine("File drag");
+                e.Effect = DragDropEffects.Link;
+
+                string[] dragFiles = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (string dragFile in dragFiles)
+                {
+                    //If Dragged File is not a shortcut don't allow Drag
+                    if (Path.GetExtension(dragFile) != ".lnk")
+                        e.Effect = DragDropEffects.None;
+                }
+
+
+            }
         }
 
         // Select the node under the mouse pointer to indicate the 
@@ -486,14 +498,37 @@ namespace ComposerAdmin.Forms
 
             // Retrieve the node at the drop location.            
             TreeNode targetNode = tvStartMenu.GetNodeAt(targetPoint);
+            if (targetNode == null) targetNode = tvStartMenu.Nodes[0];
+            
             if (!NodeIsFolder(targetNode))
                 targetNode = targetNode.Parent;
 
             // Retrieve the node that was dragged.
             TreeNode draggedNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
 
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            if (files.Length == 0)
+
+            if (draggedNode == null)
+            {
+                //Dragging a file
+                if (e.Effect == DragDropEffects.Link)
+                {
+                    string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                    DesktopComposer.Implementation.Shortcut s;
+
+                    foreach (string file in files)
+                    {
+                        _Shortcuts.Add(file,targetNode.FullPath);
+                        s = _Shortcuts[_Shortcuts.Count - 1];  //Select last added shortcut                      
+                        s.MenuPath =  NodeRelativePath(targetNode.FullPath, true);
+                        AddNode(s);                                                                                                
+                    }
+                    //Expand Target Node, ensure it is visible
+                    InvokeDataChanged();
+                    targetNode.Expand();
+                }
+
+            }
+            else
             {
                 // Confirm that the node at the drop location is not 
                 // the dragged node or a descendant of the dragged node.
@@ -510,6 +545,7 @@ namespace ComposerAdmin.Forms
                         InvokeDataChanged();
                     }
 
+
                     // If it is a copy operation, clone the dragged node 
                     // and add it to the node at the drop location.
                     /*
@@ -523,10 +559,8 @@ namespace ComposerAdmin.Forms
                     targetNode.Expand();
                 }
             }
-            else
-            {
-                foreach (string file in files) Console.WriteLine(file);
-            }
+            
+
         }
         // Determine whether one node is a parent 
         // or ancestor of a second node.

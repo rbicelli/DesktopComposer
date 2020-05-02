@@ -9,7 +9,6 @@ using System.Text;
 using System.Windows.Forms;
 using DesktopComposer.Implementation;
 using ComposerAdmin.Properties;
-using Newtonsoft.Json;
 using Tulpep.ActiveDirectoryObjectPicker;
 
 namespace ComposerAdmin.Forms
@@ -35,7 +34,8 @@ namespace ComposerAdmin.Forms
            if (PromptForSave())
             {
                 _dComposition = new Composition();
-                StartEditor.Shortcuts = _dComposition.Shortcuts;                
+                StartEditor.Shortcuts = _dComposition.Shortcuts;
+                _fileName = "";
                 SetWindowTitle();
             }
         }
@@ -101,24 +101,49 @@ namespace ComposerAdmin.Forms
         
         private void MenuClick(object sender, EventArgs e)
         {
-            ToolStripMenuItem i = (ToolStripMenuItem)sender;
+            ToolStripMenuItem i = (ToolStripMenuItem)sender;            
             
             switch (i.Name)
             {
                 case "miFileNew":
-                    StartWithNewFile();
+                    HandleMenuFileAction("FileNew");
                     break;
 
                 case "miFileSave":
-                    DocumentSave();
+                    HandleMenuFileAction("FileSave");
                     break;
 
                 case "miFileSaveAs":
-                    DocumentSave(true);
+                    HandleMenuFileAction("FileSaveAs");
                     break;
 
                 case "miFileOpen":
-                    if (PromptForSave()) { 
+                    HandleMenuFileAction("FileOpen");
+                    break;                    
+                    
+            }
+        }
+
+        private void HandleMenuFileAction(string stringAction)
+        {
+            
+            switch (stringAction)
+            {
+                case "FileNew":
+                    StartWithNewFile();
+                    break;
+
+                case "FileSave":
+                    DocumentSave();
+                    break;
+
+                case "FileSaveAs":
+                    DocumentSave(true);
+                    break;
+
+                case "FileOpen":
+                    if (PromptForSave())
+                    {
                         OpenFileDialog oDialog = new OpenFileDialog();
 
                         oDialog.Filter = Resources.COMPOSITION_FILE_FILTER;
@@ -135,40 +160,58 @@ namespace ComposerAdmin.Forms
                             _fileName = oDialog.FileName;
                             if (_dComposition == null) _dComposition = new Composition();
                             if (_dComposition.Deserialize(_fileName))
-                            {                            
-                                StartEditor.Shortcuts = _dComposition.Shortcuts;                                
+                            {
+                                StartEditor.Shortcuts = _dComposition.Shortcuts;
                             }
 
                             this.Cursor = prevCursor;
                             SetWindowTitle();
                         }
                     }
-                    break;                    
-                    
+                    break;
             }
-        }       
+        }
 
         private void MenuImportShortcutsClick(object sender, EventArgs e)
         {
             ToolStripMenuItem i=(ToolStripMenuItem) sender;
-            string importPath = null;
+            
             switch (i.Name)
             {
                 case "miImportFromLocalComputerStartMenu":
-                    importPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.CommonStartMenu);
+                    HandleMenuImportShortcutsAction("ImportFromLocalComputerStartMenu");
                     break;
                 case "miImportFromNetworkComputerStartMenu":
-                    FormInputNetworkPath f = new FormInputNetworkPath();
-                    importPath = f.ShowDialogNetworkPath();                    
+                    HandleMenuImportShortcutsAction("ImportFromNetworkComputerStartMenu");                    
                     break;
                 case "miImportFromFolder":
+                    HandleMenuImportShortcutsAction("ImportFromFolder");
+                    break;
+            }
+                        
+        }
+
+        private void HandleMenuImportShortcutsAction(string stringAction)
+        {
+            string importPath = null;
+
+            switch (stringAction)
+            {
+                case "ImportFromLocalComputerStartMenu":
+                    importPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.CommonStartMenu);
+                    break;
+                case "ImportFromNetworkComputerStartMenu":
+                    FormInputNetworkPath f = new FormInputNetworkPath();
+                    importPath = f.ShowDialogNetworkPath();
+                    break;
+                case "ImportFromFolder":
                     FolderBrowserDialog oDialog = new FolderBrowserDialog();
 
                     oDialog.ShowNewFolderButton = false;
                     if (oDialog.ShowDialog() == DialogResult.OK)
                     {
                         importPath = oDialog.SelectedPath;
-                        
+
                     }
                     break;
             }
@@ -176,7 +219,7 @@ namespace ComposerAdmin.Forms
             if (importPath != null)
             {
                 //Update Status Strip
-                UpdateToolstripStatus(Resources.STATUSMSG_IMPORTING_MENUSTRUCTURE);                
+                UpdateToolstripStatus(Resources.STATUSMSG_IMPORTING_MENUSTRUCTURE);
 
                 //Change Cursor
                 Cursor prevCursor = this.Cursor;
@@ -194,8 +237,9 @@ namespace ComposerAdmin.Forms
 
                 _documentUnsaved = true;
             }
-            
+
         }
+
         private void TimerToolstripUpdate_Tick(object sender, EventArgs e)
         {
             StatusDisplay.Text = "";
@@ -250,6 +294,41 @@ namespace ComposerAdmin.Forms
                     break;
             }
         
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void tsButtons_ButtonClick(object sender, ToolStripItemClickedEventArgs e)
+        {            
+            
+            switch (e.ClickedItem.Name)
+            {
+                case "tsbFileNew":
+                    HandleMenuFileAction("FileNew");
+                    break;
+                case "tsbFileOpen":
+                    HandleMenuFileAction("FileOpen");
+                    break;
+                case "tsbFileSave":
+                    HandleMenuFileAction("FileSave");
+                    break;
+                case "tsbFileSaveAs":
+                    HandleMenuFileAction("FileSaveAs");
+                    break;
+
+                case "tsbImportLocalStartMenu":
+                    HandleMenuImportShortcutsAction("ImportFromLocalComputerStartMenu");
+                    break;
+                case "tsbImportNetworkComputer":
+                    HandleMenuImportShortcutsAction("ImportFromNetworkComputerStartMenu");
+                    break;
+                case "tsbImportFolder":
+                    HandleMenuImportShortcutsAction("ImportFromFolder");
+                    break;                    
+            }
         }
     }
 }

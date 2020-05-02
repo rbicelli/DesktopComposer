@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopComposer", "DesktopC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComposerAgent", "ComposerAgent\ComposerAgent.csproj", "{6D18BC93-D36A-450E-8C64-F8B21A9926A4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7C419D55-B0B6-49EB-B242-F241B98356EF}"
+	ProjectSection(SolutionItems) = preProject
+		CREDITS.txt = CREDITS.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
