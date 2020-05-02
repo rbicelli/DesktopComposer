@@ -69,10 +69,12 @@ namespace ComposerAdmin.Forms
 
         private bool NodeIsFolder(TreeNode n)
         {
-            if (n.Tag == null)
-                return true;
-            else
-                return false;
+            if (n != null)
+            {
+                if (n.Tag == null)
+                    return true;             
+            }
+            return false;
         }
 
         private bool NodeIsStart(TreeNode n)
@@ -490,35 +492,42 @@ namespace ComposerAdmin.Forms
             // Retrieve the node that was dragged.
             TreeNode draggedNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
 
-            // Confirm that the node at the drop location is not 
-            // the dragged node or a descendant of the dragged node.
-            if (!draggedNode.Equals(targetNode) && !ContainsNode(draggedNode, targetNode))
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length == 0)
             {
-                // If it is a move operation, remove the node from its current 
-                // location and add it to the node at the drop location.
-                if (e.Effect == DragDropEffects.Move)
+                // Confirm that the node at the drop location is not 
+                // the dragged node or a descendant of the dragged node.
+                if (!draggedNode.Equals(targetNode) && !ContainsNode(draggedNode, targetNode))
                 {
-                    draggedNode.Remove();                    
-                    targetNode.Nodes.Add(draggedNode);
-                    //Update Node shortcut Paths
-                    UpdateShortcutsPath(draggedNode);
-                    InvokeDataChanged();
+                    // If it is a move operation, remove the node from its current 
+                    // location and add it to the node at the drop location.
+                    if (e.Effect == DragDropEffects.Move)
+                    {
+                        draggedNode.Remove();
+                        targetNode.Nodes.Add(draggedNode);
+                        //Update Node shortcut Paths
+                        UpdateShortcutsPath(draggedNode);
+                        InvokeDataChanged();
+                    }
+
+                    // If it is a copy operation, clone the dragged node 
+                    // and add it to the node at the drop location.
+                    /*
+                    else if (e.Effect == DragDropEffects.Copy)
+                    {
+                        targetNode.Nodes.Add((TreeNode)draggedNode.Clone());
+                    }
+                    */
+                    // Expand the node at the location 
+                    // to show the dropped node.
+                    targetNode.Expand();
                 }
-               
-                // If it is a copy operation, clone the dragged node 
-                // and add it to the node at the drop location.
-                /*
-                else if (e.Effect == DragDropEffects.Copy)
-                {
-                    targetNode.Nodes.Add((TreeNode)draggedNode.Clone());
-                }
-                */
-                // Expand the node at the location 
-                // to show the dropped node.
-                targetNode.Expand();
+            }
+            else
+            {
+                foreach (string file in files) Console.WriteLine(file);
             }
         }
-
         // Determine whether one node is a parent 
         // or ancestor of a second node.
         private bool ContainsNode(TreeNode node1, TreeNode node2)
