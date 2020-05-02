@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopComposer", "DesktopC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComposerAgent", "ComposerAgent\ComposerAgent.csproj", "{6D18BC93-D36A-450E-8C64-F8B21A9926A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComposerAgentService", "ComposerAgentService\ComposerAgentService.csproj", "{3A5619DB-B4F8-4AEA-96AA-5E9DFD410DD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6D18BC93-D36A-450E-8C64-F8B21A9926A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D18BC93-D36A-450E-8C64-F8B21A9926A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D18BC93-D36A-450E-8C64-F8B21A9926A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A5619DB-B4F8-4AEA-96AA-5E9DFD410DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A5619DB-B4F8-4AEA-96AA-5E9DFD410DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A5619DB-B4F8-4AEA-96AA-5E9DFD410DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A5619DB-B4F8-4AEA-96AA-5E9DFD410DD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
