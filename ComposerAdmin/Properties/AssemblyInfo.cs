@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set di attributi. Modificare i valori di questi attributi per modificare le informazioni
 // associate a un assembly.
 [assembly: AssemblyTitle("Composition Editor")]
-[assembly: AssemblyDescription("This software is at Alpha Stage.\nUse at on your own risk.")]
+[assembly: AssemblyDescription("Start Menu Shortcuts Editor")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sequence Software")]
 [assembly: AssemblyProduct("ComposerAdmin")]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -20,7 +21,18 @@ namespace ComposerAdmin.Forms
             this.labelVersion.Text = String.Format(Resources.ABOUT_LABEL_VERSION, AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription1.Text = AssemblyDescription;
+            this.textBoxDescription1.Text = getLicenseFileDescription();
+        }
+
+        private string getLicenseFileDescription()
+        {
+            string LicenseFile = Path.GetDirectoryName(new System.Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath) + @"\LICENSE";
+
+            if (File.Exists(LicenseFile))
+            {
+                return File.ReadAllText(LicenseFile);
+            }
+            return Resources.MESSAGE_UNABLE_TO_RETRIEVE_LICENSE_FILE;
         }
 
         #region Funzioni di accesso attributo assembly

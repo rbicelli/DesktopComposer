@@ -3,7 +3,7 @@
 
 #define MyAppName "Composition Editor"
 #define MyAppVersion "0.9.1"
-#define MyAppVersionText "0.9-ALPHA"
+#define MyAppVersionText "0.9"
 #define MyAppURL "https://github.com/rbicelli/DesktopComposer"
 #define MyAppExeName "ComposerAdmin.exe"
 #define MyAppProductName "ComposerAdmin"
@@ -57,8 +57,9 @@ Source: "..\ComposerAdmin\bin\Release\ActiveDirectoryObjectPicker.xml"; DestDir:
 Source: "..\ComposerAdmin\bin\Release\DesktopComposer.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\ComposerAdmin\bin\Release\IconLib.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\ComposerAdmin\bin\Release\IconLib.xml"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\ComposerAdmin\bin\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\ComposerAdmin\bin\Release\Newtonsoft.Json.xml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\ComposerAdmin\bin\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\ComposerAdmin\bin\Release\Newtonsoft.Json.xml"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

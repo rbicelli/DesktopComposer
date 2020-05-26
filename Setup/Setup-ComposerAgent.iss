@@ -4,7 +4,7 @@
 #define MyAppName "Desktop Composer Agent"
 #define MyAppProductName "ComposerAgent"
 #define MyAppVersion "0.9.1"
-#define MyAppVersionText "0.9-ALPHA"
+#define MyAppVersionText "0.9"
 #define MyAppPublisher "Sequence Software"
 #define MyAppAuthor "Riccardo Bicelli"
 #define MyAppURL "https://github.com/rbicelli/DesktopComposer"
@@ -50,6 +50,7 @@ Source: "..\ComposerAgent\bin\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags:
 Source: "..\ComposerAgent\bin\Release\DesktopComposer.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\ComposerAgent\bin\Release\IconLib.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\ComposerAgent\bin\Release\IconLib.xml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 
 [Run]
 Filename: "{app}\ComposerAgent.exe"; Parameters: "-install -noconsole"; WorkingDir: "{app}"; Flags: postinstall runhidden

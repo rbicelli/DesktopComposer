@@ -213,6 +213,15 @@ namespace ComposerAdmin.Properties {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a Licensed Under MIT License.
+        /// </summary>
+        internal static string MESSAGE_UNABLE_TO_RETRIEVE_LICENSE_FILE {
+            get {
+                return ResourceManager.GetString("MESSAGE_UNABLE_TO_RETRIEVE_LICENSE_FILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a Done.
         /// </summary>
         internal static string STATUSMSG_DONE {

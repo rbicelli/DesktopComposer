@@ -163,6 +163,9 @@
   <data name="MESSAGE_TITLE_SAVE" xml:space="preserve">
     <value>Confirm Save</value>
   </data>
+  <data name="MESSAGE_UNABLE_TO_RETRIEVE_LICENSE_FILE" xml:space="preserve">
+    <value>Licensed Under MIT License</value>
+  </data>
   <data name="STATUSMSG_DONE" xml:space="preserve">
     <value>Done</value>
   </data>
