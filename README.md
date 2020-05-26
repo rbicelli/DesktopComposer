@@ -1,3 +1,5 @@
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/rbicelli)
+
 # DesktopComposer
 
 This is a software designed to simplify the task of managing Windows Start Menu and Desktop Shortcuts (and hopefully in the future some other Desktop related settings) in an Active Directory environment.
@@ -11,7 +13,7 @@ DesktopComposer consists of two programs:
 
 ## ComposerAdmin Features
 
-- Build a start menu from scratch (creates Menus and Shortcuts) in an intuitive way
+- Build a Start Menu from scratch (creates Menus and Shortcuts) in an easy and friendly way
 - Import Shortcuts from Local Start Menu
 - Import Shortcuts from other Computer in same Network (e.g. your terminal server)
 - Import Shortcuts from Folder
@@ -44,11 +46,11 @@ Install ComposerAgent on every computer you wish to deploy Start Menus and Deskt
 
 You can deploy Agents silently calling the setup executable with /VERYSILENT flag:
 
-'''
+```
 ComposerAgentSetup-%VERSION%.exe /VERYSILENT
-'''
+```
 
-## Create the group policy
+## Create the required Group Policy Objects
 
 First you need to deploy ADMX templates to your Windows Policy Folder or the Central Store.
 
@@ -59,29 +61,28 @@ Open the Group Policy Management Snap-In and create the Group Policy
 These instructions are for a typical RDS Server Farm setup, consider an organizational structure like this:
 
 
-'''
+```
 + Domain
   + RD Farm
   + RD Session Hosts
     - RDS Server 01	
-'''
+```
 
-Create a GPO and link it to the RDS Servers OU.
+Create a GPO and link it to the **RD Session Hosts** OU.
 
-[PICTURE]
-
-Then Edit the GPO:
+Then Edit the GPO just created.
 
 ### Computer Settings
 
 1. Set the Group Policy Loopback Prcessing Mode to Merge:
+
 Open **Computer Configuration\Policies\Administrative Templates\System\Group Policy\Configure user Group Policy loopback processing mode**, set it to **Enabled** and **Merge**
 This will apply th user policy to users logged in to computer
 
-2. Add users to DesktopComposer Local User Group
-Open **Computer Configuration\Preferences\Control Panel Settings\Local Users and Groups**, then create new local group called **DesktopComposer Users** and add as members the Users groups...
+2. Add users to DesktopComposer Local User Group:
 
-[PICTURE]
+Open **Computer Configuration\Preferences\Control Panel Settings\Local Users and Groups**, then create new local group called **DesktopComposer Users** and add as members the needed Users groups.
+
 
 ### User Settings
 
@@ -90,7 +91,7 @@ Open **Computer Configuration\Preferences\Control Panel Settings\Local Users and
 **Script Parameters:** -compose
 This will trigger the Composition of Start Menu and Desktop Shortcuts at User Logon
 
-2.(optional) Open **User Configuration\Windows Settings\Scripts (Logon/Logoff)\Logoff**, add a new logonff script, 
+2. (optional) Open **User Configuration\Windows Settings\Scripts (Logon/Logoff)\Logoff**, add a new logonff script, 
 **Script Name**: %PROGRAMFILES%\Sequence Software\Composer Agent\ComposerAgent.exe
 **Script Parameters:** -decompose
 This will restore the initial Start Menu and Desktop Shortcuts at user User Logoff
@@ -103,4 +104,24 @@ Open **User Configuration\Administrative Templates\Sequence Software\DesktopComp
 
 2. Set **Composition File Location** to the composition file previously saved (e.g. **\\MYDOMAIN\netlogon\dcomposer\rd-servers.dcxml** )
 
-3. Optionally you can set the **Log File Location** (e.g. **%TEMP%\COMPOSERLOG.LOG**) and **Log Threshold**. By default it saves logs in %APPDATA%
+3. Optionally you can set the **Log File Location** (e.g. **%TEMP%\COMPOSERLOG.LOG**) and **Log Threshold**. By default it saves logs in %APPDATA%.
+
+## Troubleshooting
+
+If you encounter problems first check the logs. You could raise the verbosity of logs simply editing the **Log Threshold** GPO Item.
+For further troubleshooting you can open a console and launch the agent Manually:
+
+```
+%PROGRAMFILES%\Sequence Software\Composer Agent\ComposerAgent.exe
+Command line Args are:
+-compose: run the composition
+-decompose: restores initial state
+-install: install related tasks (creates Local User Group and sets Deny ACLs on common Desktop and Common Start Menu)
+-uninstall: uninstall related tasks (rollback install)
+
+NOTE: Install and uninstall requires elevated privileges and are executed by the installer/uninstaller.
+```
+
+# License
+
+This software is released under the MIT License.
