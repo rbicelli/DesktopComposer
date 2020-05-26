@@ -291,6 +291,9 @@
   <data name="btnChangeIcon.Text" xml:space="preserve">
     <value>Change Icon</value>
   </data>
+  <data name="btnChangeIcon.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;btnChangeIcon.Name" xml:space="preserve">
     <value>btnChangeIcon</value>
   </data>
@@ -787,7 +790,7 @@
     <value>aclEditor</value>
   </data>
   <data name="&gt;&gt;aclEditor.Type" xml:space="preserve">
-    <value>ComposerAdmin.Forms.ACLEditorControl, ComposerAdmin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ComposerAdmin.Forms.ACLEditorControl, ComposerAdmin, Version=0.9.2.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;aclEditor.Parent" xml:space="preserve">
     <value>tabPACL</value>
@@ -911,9 +914,6 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>413, 470</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>

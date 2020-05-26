@@ -4,47 +4,53 @@
 #define MyAppName "Composition Editor"
 #define MyAppVersion "0.9.1"
 #define MyAppVersionText "0.9-ALPHA"
-#define MyAppPublisher "Riccardo Bicelli"
-#define MyAppURL "https://github.com/rbicelli/usb-watchdog-control"
+#define MyAppURL "https://github.com/rbicelli/DesktopComposer"
 #define MyAppExeName "ComposerAdmin.exe"
+#define MyAppProductName "ComposerAdmin"
+#define MyAppPublisher "Sequence Software"
+#define MyAppAuthor "Riccardo Bicelli"
+#define MyAppURL "https://github.com/rbicelli/DesktopComposer"
+#define MyAppDescription "Desktop Composition Editor"
+#define MyAppGroupName "Desktop Composer"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{1236C866-B49A-4715-AD91-B89BFB666280}}
-AppName=Composition Editor
-AppVersion=0.9.1
-;AppVerName=Desktop Composer 1.0
-AppPublisher=Sequence Software
-AppPublisherURL=http://www.sequence.it/desktopcomposer
-AppSupportURL=http://www.sequence.it/desktopcomposer
-AppUpdatesURL=http://www.sequence.it/desktopcomposer
+AppName={#MyAppName}
+AppVersion={#MyAppVersion}
+AppPublisher={#MyAppPublisher}
+AppPublisherURL={#MyAppURL}
+AppSupportURL={#MyAppURL}
+AppUpdatesURL={#MyAppURL}
 DefaultDirName={commonpf}\Sequence Software\ComposerEditor
-DefaultGroupName=Desktop Composer
-OutputBaseFilename=CompositionEditorSetup
+DefaultGroupName={#MyAppGroupName}
+OutputBaseFilename=ComposerAdminSetup-{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
-AppCopyright=Sequence Software
-MinVersion=0,6.0
+AppCopyright={#MyAppPublisher} 2020
 AllowUNCPath=False
-UninstallDisplayIcon={app}\ComposerAdmin.exe
-UninstallDisplayName=Composition Editor
-VersionInfoVersion=0.9.1
-VersionInfoCompany=Sequence Software
-VersionInfoDescription=Desktop Composition Editor
-VersionInfoTextVersion=0.9-ALPHA
-VersionInfoCopyright=2020 Riccardo Bicelli
-VersionInfoProductName=ComposerAdmin
-VersionInfoProductVersion=0.9.1
-VersionInfoProductTextVersion=0.9-ALPHA
+UninstallDisplayName={#MyAppName}
+UninstallDisplayIcon={app}\{#MyAppExeName}
+VersionInfoVersion={#MyAppversion}
+VersionInfoCompany={#MyAppPublisher}
+VersionInfoDescription={#MyAppDescription}
+VersionInfoTextVersion={#MyAppVersiontext}
+VersionInfoCopyright=2020 {#MyAppAuthor}
+VersionInfoProductName={#MyAppProductName}
+VersionInfoProductVersion={#MyAppVersion}
+VersionInfoProductTextVersion={#MyAppVersiontext}
+MinVersion=0,6.0
+ArchitecturesInstallIn64BitMode=x64
+LicenseFile=..\LICENSE
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
 Source: "..\ComposerAdmin\bin\Release\ComposerAdmin.exe"; DestDir: "{app}"; Flags: ignoreversion; MinVersion: 0,6.1
-Source: "..\ComposerAdmin\bin\Release\Resources\*"; DestDir: "{app}\Resources\"; Flags: ignoreversion recursesubdirs createallsubdirs
+;Source: "..\ComposerAdmin\bin\Release\Resources\*"; DestDir: "{app}\Resources\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\ComposerAdmin\Tools\ADMX\*"; DestDir: "{app}\Tools\ADMX"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\ComposerAdmin\bin\Release\ActiveDirectoryObjectPicker.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\ComposerAdmin\bin\Release\ActiveDirectoryObjectPicker.xml"; DestDir: "{app}"; Flags: ignoreversion

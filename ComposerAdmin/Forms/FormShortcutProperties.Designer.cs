@@ -32,6 +32,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormShortcutProperties));
             this.tabCMain = new System.Windows.Forms.TabControl();
             this.tabPGeneral = new System.Windows.Forms.TabPage();
+            this.chkCheckIfTargetExists = new System.Windows.Forms.CheckBox();
+            this.chkDeployDisabled = new System.Windows.Forms.CheckBox();
+            this.chkPutOnStartMenu = new System.Windows.Forms.CheckBox();
+            this.chkPinOnTaskBar = new System.Windows.Forms.CheckBox();
+            this.chkPutOnDesktop = new System.Windows.Forms.CheckBox();
             this.btnChangeIcon = new System.Windows.Forms.Button();
             this.textArguments = new System.Windows.Forms.TextBox();
             this.lbArgs = new System.Windows.Forms.Label();
@@ -51,15 +56,10 @@
             this.btnACLDelete = new System.Windows.Forms.Button();
             this.BtnACLAdd = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.aclEditor = new ComposerAdmin.Forms.ACLEditorControl();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.imlIcons = new System.Windows.Forms.ImageList(this.components);
-            this.aclEditor = new ComposerAdmin.Forms.ACLEditorControl();
-            this.chkCheckIfTargetExists = new System.Windows.Forms.CheckBox();
-            this.chkDeployDisabled = new System.Windows.Forms.CheckBox();
-            this.chkPutOnStartMenu = new System.Windows.Forms.CheckBox();
-            this.chkPinOnTaskBar = new System.Windows.Forms.CheckBox();
-            this.chkPutOnDesktop = new System.Windows.Forms.CheckBox();
             this.tabCMain.SuspendLayout();
             this.tabPGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBIcon)).BeginInit();
@@ -98,6 +98,36 @@
             resources.ApplyResources(this.tabPGeneral, "tabPGeneral");
             this.tabPGeneral.Name = "tabPGeneral";
             this.tabPGeneral.UseVisualStyleBackColor = true;
+            // 
+            // chkCheckIfTargetExists
+            // 
+            resources.ApplyResources(this.chkCheckIfTargetExists, "chkCheckIfTargetExists");
+            this.chkCheckIfTargetExists.Name = "chkCheckIfTargetExists";
+            this.chkCheckIfTargetExists.UseVisualStyleBackColor = true;
+            // 
+            // chkDeployDisabled
+            // 
+            resources.ApplyResources(this.chkDeployDisabled, "chkDeployDisabled");
+            this.chkDeployDisabled.Name = "chkDeployDisabled";
+            this.chkDeployDisabled.UseVisualStyleBackColor = true;
+            // 
+            // chkPutOnStartMenu
+            // 
+            resources.ApplyResources(this.chkPutOnStartMenu, "chkPutOnStartMenu");
+            this.chkPutOnStartMenu.Name = "chkPutOnStartMenu";
+            this.chkPutOnStartMenu.UseVisualStyleBackColor = true;
+            // 
+            // chkPinOnTaskBar
+            // 
+            resources.ApplyResources(this.chkPinOnTaskBar, "chkPinOnTaskBar");
+            this.chkPinOnTaskBar.Name = "chkPinOnTaskBar";
+            this.chkPinOnTaskBar.UseVisualStyleBackColor = true;
+            // 
+            // chkPutOnDesktop
+            // 
+            resources.ApplyResources(this.chkPutOnDesktop, "chkPutOnDesktop");
+            this.chkPutOnDesktop.Name = "chkPutOnDesktop";
+            this.chkPutOnDesktop.UseVisualStyleBackColor = true;
             // 
             // btnChangeIcon
             // 
@@ -210,6 +240,12 @@
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
             // 
+            // aclEditor
+            // 
+            this.aclEditor.ACLs = null;
+            resources.ApplyResources(this.aclEditor, "aclEditor");
+            this.aclEditor.Name = "aclEditor";
+            // 
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -231,42 +267,6 @@
             this.imlIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
             resources.ApplyResources(this.imlIcons, "imlIcons");
             this.imlIcons.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // aclEditor
-            // 
-            this.aclEditor.ACLs = null;
-            resources.ApplyResources(this.aclEditor, "aclEditor");
-            this.aclEditor.Name = "aclEditor";
-            // 
-            // chkCheckIfTargetExists
-            // 
-            resources.ApplyResources(this.chkCheckIfTargetExists, "chkCheckIfTargetExists");
-            this.chkCheckIfTargetExists.Name = "chkCheckIfTargetExists";
-            this.chkCheckIfTargetExists.UseVisualStyleBackColor = true;
-            // 
-            // chkDeployDisabled
-            // 
-            resources.ApplyResources(this.chkDeployDisabled, "chkDeployDisabled");
-            this.chkDeployDisabled.Name = "chkDeployDisabled";
-            this.chkDeployDisabled.UseVisualStyleBackColor = true;
-            // 
-            // chkPutOnStartMenu
-            // 
-            resources.ApplyResources(this.chkPutOnStartMenu, "chkPutOnStartMenu");
-            this.chkPutOnStartMenu.Name = "chkPutOnStartMenu";
-            this.chkPutOnStartMenu.UseVisualStyleBackColor = true;
-            // 
-            // chkPinOnTaskBar
-            // 
-            resources.ApplyResources(this.chkPinOnTaskBar, "chkPinOnTaskBar");
-            this.chkPinOnTaskBar.Name = "chkPinOnTaskBar";
-            this.chkPinOnTaskBar.UseVisualStyleBackColor = true;
-            // 
-            // chkPutOnDesktop
-            // 
-            resources.ApplyResources(this.chkPutOnDesktop, "chkPutOnDesktop");
-            this.chkPutOnDesktop.Name = "chkPutOnDesktop";
-            this.chkPutOnDesktop.UseVisualStyleBackColor = true;
             // 
             // FormShortcutProperties
             // 

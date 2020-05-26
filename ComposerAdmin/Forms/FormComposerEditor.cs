@@ -23,8 +23,7 @@ namespace ComposerAdmin.Forms
         public FormComposerEditor()
         {
             InitializeComponent();
-            _windowTitle = this.Text;
-            loadFactorySettings();
+            _windowTitle = this.Text;            
             _fileName = "";
             StartWithNewFile();            
         }
@@ -54,12 +53,7 @@ namespace ComposerAdmin.Forms
             _documentUnsaved = false;
             this.Text = _windowTitle + " - " + fileTitle;
         }
-        private void loadFactorySettings()
-        {
-            string factorySettingsFile = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Resources\\FactoryDefaults.json";
-            string input = File.ReadAllText(factorySettingsFile);                        
-        }
-              
+             
         private string promptSave(string FileName=null)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
