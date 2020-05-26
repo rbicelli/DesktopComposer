@@ -34,7 +34,7 @@ DesktopComposer consists of two programs:
 
 ## Prepare the required environment
 
-Grab setup files in releases.
+Grab setup files in [releases](releases/).
 
 - Install Shortcuts Editor on administrator machine, typically the one you use to manage Group Policies ordirectly on your Terminal Server.
 - Create a folder widely accessible in Read-Only mode for the end user where you will put composition file, typically a subfolder under NETLOGON, eg. **\\MYDOMAIN\NETLOGON\DesktopComposerFiles**. 
