@@ -217,7 +217,7 @@ namespace DesktopComposer.Implementation
                     if (acl.SID == aclmemberof & acl.Disabled==false)
                     {
                         //If ACL is type of deny then return false
-                        if (acl.ACLType == ACLTypes.Deny)
+                        if (acl.ACLType == ACLType.Deny)
                             return false;
                         bRet = true;
                     }

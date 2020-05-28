@@ -67,7 +67,7 @@ namespace ComposerAdmin.Forms
             Litem.Text = acl.ObjectShortName;
             int imIndex=0;
             
-            if (acl.ObjectType == ACLObjectTypes.User)
+            if (acl.ObjectType == ACLObjectType.User)
                 imIndex = 0;
             else
                 imIndex = 1;
@@ -76,7 +76,7 @@ namespace ComposerAdmin.Forms
             {
                 imIndex += 4;
             } else { 
-                if (acl.ACLType == ACLTypes.Deny)
+                if (acl.ACLType == ACLType.Deny)
                     imIndex += 2;
             }
 
@@ -121,9 +121,9 @@ namespace ComposerAdmin.Forms
             string objectSID;
             string objectName;
             string objectUPN;
-            ACLObjectTypes objectType;
+            ACLObjectType objectType;
             string objectPath;
-            objectType = ACLObjectTypes.User;
+            objectType = ACLObjectType.User;
 
 
             ADPicker.AllowedObjectTypes = ObjectTypes.Users | ObjectTypes.Groups;
@@ -150,11 +150,11 @@ namespace ComposerAdmin.Forms
                     switch (results[i].SchemaClassName.ToLower())
                     {
                         case "user":
-                            objectType = ACLObjectTypes.User;
+                            objectType = ACLObjectType.User;
                             break;
 
                         case "group":
-                            objectType = ACLObjectTypes.Group;
+                            objectType = ACLObjectType.Group;
                             break;
                     }
 
@@ -207,9 +207,9 @@ namespace ComposerAdmin.Forms
             {
                 acl = (ACL)li.Tag;
                 if (value)
-                    acl.ACLType = ACLTypes.Deny;                
+                    acl.ACLType = ACLType.Deny;                
                 else
-                    acl.ACLType = ACLTypes.Allow;
+                    acl.ACLType = ACLType.Allow;
 
                 RefreshListItem(li);
             }
@@ -247,7 +247,7 @@ namespace ComposerAdmin.Forms
             {
                 ACL acl = (ACL)lv.SelectedItems[0].Tag;
                 ctxMenuDisabled.Checked = acl.Disabled;
-                ctxMenuDeny.Checked = (acl.ACLType == ACLTypes.Allow) ? false : true;                                
+                ctxMenuDeny.Checked = (acl.ACLType == ACLType.Allow) ? false : true;                                
             } else
             {
                 ctxMenuDeny.Checked = false;

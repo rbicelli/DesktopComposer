@@ -3,7 +3,7 @@
 
 #define MyAppName "Desktop Composer Agent"
 #define MyAppProductName "ComposerAgent"
-#define MyAppVersion "0.9.1"
+#define MyAppVersion "0.9.2"
 #define MyAppVersionText "0.9"
 #define MyAppPublisher "Sequence Software"
 #define MyAppAuthor "Riccardo Bicelli"

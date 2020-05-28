@@ -43,7 +43,7 @@ namespace ComposerAdmin.Forms
         private void SetWindowTitle()
         {
             string fileTitle;
-            if (_fileName!=""){
+            if (String.IsNullOrEmpty(_fileName) == false){
                 fileTitle = Path.GetFileNameWithoutExtension(_fileName);
             } else
             {
@@ -54,19 +54,20 @@ namespace ComposerAdmin.Forms
             this.Text = _windowTitle + " - " + fileTitle;
         }
              
-        private string promptSave(string FileName=null)
+        private static string promptSave()
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
-            saveFileDialog1.Filter = Resources.COMPOSITION_FILE_FILTER;
-            saveFileDialog1.FilterIndex = 0;
-            saveFileDialog1.RestoreDirectory = true;
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            using (SaveFileDialog saveFileDialog1 = new SaveFileDialog())
             {
-                return saveFileDialog1.FileName;
-            }
 
+                saveFileDialog1.Filter = Resources.COMPOSITION_FILE_FILTER;
+                saveFileDialog1.FilterIndex = 0;
+                saveFileDialog1.RestoreDirectory = true;
+
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    return saveFileDialog1.FileName;
+                }
+            }
             return "";
         }
         
@@ -74,12 +75,12 @@ namespace ComposerAdmin.Forms
         {
             string lFileName;
 
-            if ( (_fileName == "" | _fileName == null) | (SaveAs==true) )
+            if ( String.IsNullOrEmpty(_fileName) | (SaveAs==true) )
                 lFileName = promptSave();
             else
                 lFileName = _fileName;
 
-            if (lFileName != "" & lFileName != null)
+            if (String.IsNullOrEmpty(lFileName)==false)
             {
                 _dComposition.Serialize(lFileName);
                 _fileName = lFileName;
@@ -138,28 +139,30 @@ namespace ComposerAdmin.Forms
                 case "FileOpen":
                     if (PromptForSave())
                     {
-                        OpenFileDialog oDialog = new OpenFileDialog();
-
-                        oDialog.Filter = Resources.COMPOSITION_FILE_FILTER;
-                        oDialog.FilterIndex = 0;
-                        oDialog.RestoreDirectory = true;
-
-                        if (oDialog.ShowDialog() == DialogResult.OK)
+                        using (OpenFileDialog oDialog = new OpenFileDialog())
                         {
-                            //Change Cursor
-                            Cursor prevCursor = this.Cursor;
-                            this.Cursor = Cursors.WaitCursor;
 
+                            oDialog.Filter = Resources.COMPOSITION_FILE_FILTER;
+                            oDialog.FilterIndex = 0;
+                            oDialog.RestoreDirectory = true;
 
-                            _fileName = oDialog.FileName;
-                            if (_dComposition == null) _dComposition = new Composition();
-                            if (_dComposition.Deserialize(_fileName))
+                            if (oDialog.ShowDialog() == DialogResult.OK)
                             {
-                                StartEditor.Shortcuts = _dComposition.Shortcuts;
-                            }
+                                //Change Cursor
+                                Cursor prevCursor = this.Cursor;
+                                this.Cursor = Cursors.WaitCursor;
 
-                            this.Cursor = prevCursor;
-                            SetWindowTitle();
+
+                                _fileName = oDialog.FileName;
+                                if (_dComposition == null) _dComposition = new Composition();
+                                if (_dComposition.Deserialize(_fileName))
+                                {
+                                    StartEditor.Shortcuts = _dComposition.Shortcuts;
+                                }
+
+                                this.Cursor = prevCursor;
+                                SetWindowTitle();
+                            }
                         }
                     }
                     break;
@@ -195,17 +198,20 @@ namespace ComposerAdmin.Forms
                     importPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.CommonStartMenu);
                     break;
                 case "ImportFromNetworkComputerStartMenu":
-                    FormInputNetworkPath f = new FormInputNetworkPath();
-                    importPath = f.ShowDialogNetworkPath();
+                    using (FormInputNetworkPath f = new FormInputNetworkPath())
+                    {
+                        importPath = f.ShowDialogNetworkPath();
+                    }
                     break;
                 case "ImportFromFolder":
-                    FolderBrowserDialog oDialog = new FolderBrowserDialog();
-
-                    oDialog.ShowNewFolderButton = false;
-                    if (oDialog.ShowDialog() == DialogResult.OK)
+                    using (FolderBrowserDialog oDialog = new FolderBrowserDialog())
                     {
-                        importPath = oDialog.SelectedPath;
+                        oDialog.ShowNewFolderButton = false;
+                        if (oDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            importPath = oDialog.SelectedPath;
 
+                        }
                     }
                     break;
             }
@@ -283,8 +289,10 @@ namespace ComposerAdmin.Forms
             switch (i.Name)
             {
                 case "mniHelpAbout":
-                    FormAbout fa = new FormAbout();
-                    fa.ShowDialog();
+                    using (FormAbout fa = new FormAbout())
+                    {
+                        fa.ShowDialog();
+                    }
                     break;
             }
         

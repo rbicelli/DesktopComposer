@@ -6,7 +6,7 @@ This is a software designed to simplify the task of managing Windows Start Menu 
 
 ![](images/screenshot.png?raw=true)
 
-DesktopComposer consists of two programs:
+DesktopComposer is made of two programs:
 
 - ComposerAdmin: GUI program use to build Start Menus
 - ComposerAgent: Agent program which runs at user logon/logoff and creates the Start Menu according to settings defined in ComposerAdmin
@@ -37,7 +37,7 @@ DesktopComposer consists of two programs:
 Grab setup files in [releases](https://github.com/rbicelli/DesktopComposer/releases/).
 
 - Install Shortcuts Editor on administrator machine, typically the one you use to manage Group Policies ordirectly on your Terminal Server.
-- Create a folder widely accessible in Read-Only mode for the end user where you will put composition file, typically a subfolder under NETLOGON, eg. **\\MYDOMAIN\NETLOGON\DesktopComposerFiles**. 
+- Create a folder widely accessible in Read-Only mode for the end user where you will put composition file, typically a subfolder under NETLOGON, eg. **\\\\MYDOMAIN\NETLOGON\DesktopComposerFiles**. 
 - Create your first start menu, save the file in the directory, for exampe **\\\\MYDOMAIN\netlogon\dcomposer\rd-servers.dcxml**
 
 ## Deploy Agents
@@ -89,11 +89,13 @@ Open **Computer Configuration\Preferences\Control Panel Settings\Local Users and
 1. Open **User Configuration\Windows Settings\Scripts (Logon/Logoff)\Logon**, add a new logon script:
  - **Script Name**: %PROGRAMFILES%\Sequence Software\Composer Agent\ComposerAgent.exe
  - **Script Parameters:** -compose
+
 This will trigger the Composition of Start Menu and Desktop Shortcuts at User Logon
 
 2. (optional) Open **User Configuration\Windows Settings\Scripts (Logon/Logoff)\Logoff**, add a new logonff script, 
  - **Script Name**: %PROGRAMFILES%\Sequence Software\Composer Agent\ComposerAgent.exe
  - **Script Parameters:** -decompose
+
 This will restore the initial Start Menu and Desktop Shortcuts at user User Logoff
 
 ### ComposerAgent Settings

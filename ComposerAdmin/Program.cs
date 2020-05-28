@@ -16,7 +16,10 @@ namespace ComposerAdmin
         {                                    
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormComposerEditor());
+            using (FormComposerEditor f = new FormComposerEditor())
+            {
+                Application.Run(f);
+            }
         }
         
     }

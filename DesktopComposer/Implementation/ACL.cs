@@ -7,13 +7,13 @@ using DesktopComposer.Interfaces;
 
 namespace DesktopComposer.Implementation
 {
-    public enum ACLTypes
+    public enum ACLType
     {
         Allow = 0,
         Deny = 1
     }
 
-    public enum ACLObjectTypes
+    public enum ACLObjectType
     {
         User = 1,
         Group = 2
@@ -33,13 +33,13 @@ namespace DesktopComposer.Implementation
         public String ObjectPath { get; set; }
 
         [XmlAttribute]
-        public ACLTypes ACLType { get; set; }
+        public ACLType ACLType { get; set; }
 
         [XmlAttribute]
         public bool Disabled { get; set; }
 
         [XmlAttribute]
-        public ACLObjectTypes ObjectType { get; set; }
+        public ACLObjectType ObjectType { get; set; }
 
         [XmlIgnore]
         public string ObjectShortName{

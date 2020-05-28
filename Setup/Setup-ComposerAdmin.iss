@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Composition Editor"
-#define MyAppVersion "0.9.1"
+#define MyAppVersion "0.9.2"
 #define MyAppVersionText "0.9"
 #define MyAppURL "https://github.com/rbicelli/DesktopComposer"
 #define MyAppExeName "ComposerAdmin.exe"

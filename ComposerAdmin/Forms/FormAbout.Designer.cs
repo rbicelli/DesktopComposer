@@ -118,7 +118,7 @@
             this.textBoxDescription1.Name = "textBoxDescription1";
             this.textBoxDescription1.ReadOnly = true;
             this.textBoxDescription1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxDescription1.Size = new System.Drawing.Size(380, 75);
+            this.textBoxDescription1.Size = new System.Drawing.Size(380, 105);
             this.textBoxDescription1.TabIndex = 27;
             this.textBoxDescription1.TabStop = false;
             this.textBoxDescription1.Text = "Descrizione";
@@ -126,7 +126,7 @@
             // okButton
             // 
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.okButton.Location = new System.Drawing.Point(306, 199);
+            this.okButton.Location = new System.Drawing.Point(306, 235);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 28;
@@ -137,7 +137,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(383, 229);
+            this.ClientSize = new System.Drawing.Size(383, 264);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.textBoxDescription1);
             this.Controls.Add(this.panel1);

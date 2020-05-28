@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CA1707: Rimuovere i caratteri di sottolineatura dal nome di membro DesktopComposer.ShellIcon.MAX_PATH.
+dotnet_diagnostic.CA1707.severity = silent

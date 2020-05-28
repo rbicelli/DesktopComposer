@@ -67,7 +67,7 @@ namespace ComposerAdmin.Forms
             }
         }
 
-        private bool NodeIsFolder(TreeNode n)
+        private static bool NodeIsFolder(TreeNode n)
         {
             if (n != null)
             {
@@ -77,7 +77,7 @@ namespace ComposerAdmin.Forms
             return false;
         }
 
-        private bool NodeIsStart(TreeNode n)
+        private static bool NodeIsStart(TreeNode n)
         {
             if (n.Index == 0 & n.Level == 0)
                 return true;
