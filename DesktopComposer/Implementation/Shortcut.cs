@@ -192,11 +192,8 @@ namespace DesktopComposer.Implementation
 
             if (System.IO.File.Exists(IconPath))
             {
-                //IconCacheLarge = ShellIcon.IconExtract(IconPath,IconIndex,1);
-                Icon lIcon = ShellIcon.IconExtract(IconPath, IconIndex, 1);
-                IconCacheLarge = lIcon;
-                lIcon = ShellIcon.IconExtract(IconPath, IconIndex);
-                IconCacheSmall = lIcon;
+                IconCacheLarge = ShellIcon.IconExtract(IconPath,IconIndex,1);
+                IconCacheSmall = ShellIcon.IconExtract(IconPath, IconIndex);                
             }
         }
 

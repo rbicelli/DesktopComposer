@@ -174,9 +174,15 @@ namespace ComposerAdmin.Forms
             }
             else
             {
-                lastNode.ImageKey = "APPLICATION_DEFAULT";
-                lastNode.SelectedImageKey = "APPLICATION_DEFAULT";
-                //Default Icon    
+                
+                //Default Icon
+                if (!imlIcons.Images.ContainsKey(shortcut.ObjectID.ToString()))
+                {
+                    imlIcons.Images.Add(shortcut.ObjectID.ToString(), (Image)imlIcons.Images[imlIcons.Images.IndexOfKey("APPLICATION_DEFAULT")].Clone());
+                    lastNode.ImageKey = shortcut.ObjectID.ToString();
+                    lastNode.SelectedImageKey = lastNode.ImageKey;
+                }
+                
             }
             return lastNode;
         }
@@ -467,8 +473,7 @@ namespace ComposerAdmin.Forms
         // Set the target drop effect to the effect 
         // specified in the ItemDrag event handler.
         private void tvDragEnter(object sender, DragEventArgs e)
-        {
-            /*
+        {            
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 Console.WriteLine("File drag");
@@ -481,8 +486,9 @@ namespace ComposerAdmin.Forms
                     if (Path.GetExtension(dragFile) != ".lnk")
                         e.Effect = DragDropEffects.None;
                 }            
-            }
-            */
+            } else {
+                e.Effect = DragDropEffects.Move;
+            }      
         }
 
         // Select the node under the mouse pointer to indicate the 
