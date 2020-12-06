@@ -331,6 +331,6 @@ namespace ComposerAdmin.Forms
                     HandleMenuImportShortcutsAction("ImportFromFolder");
                     break;                    
             }
-        }
+        }     
     }
 }

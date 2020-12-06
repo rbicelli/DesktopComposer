@@ -30,7 +30,7 @@ namespace DesktopComposer.Implementation
         public String ObjectName { get; set; }
 
         [XmlAttribute]
-        public String ObjectPath { get; set; }
+        public String ObjectPath { get; set; } //TODO: Consider Deletion
 
         [XmlAttribute]
         public ACLType ACLType { get; set; }
@@ -41,21 +41,23 @@ namespace DesktopComposer.Implementation
         [XmlAttribute]
         public ACLObjectType ObjectType { get; set; }
 
-        [XmlIgnore]
+        [XmlAttribute]
         public string ObjectShortName{
             get { 
+                /*
                 if (ObjectPath != null)
                 {
                     string[] str = ObjectPath.Split('/');
                     if (str.Length > 1)
                     {
-                        return str[str.Length - 2] + '\\' + str[str.Length - 1];
+                        //return str[str.Length - 2] + '\\' + str[str.Length - 1];
+                        return str[str.Length - 2] + '\\' + ObjectName;
                     }
                 }
+                */
                 return ObjectName;
             }
-
-        }
+        }        
 
         public object Clone()
         {

@@ -459,6 +459,7 @@ namespace ComposerAgent
                 SIDGroup = null;
                 
             }
+            windowsIdentity.Dispose();
             return SIDs;
         }
         

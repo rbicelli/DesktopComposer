@@ -33,19 +33,26 @@ namespace ComposerAdmin.Forms
 
         public StartMenuEditorControl()
         {
-            InitializeComponent();
-
-            //Add Shell Icons
-            imlIcons.Images.Add("APPLICATION_DEFAULT", ShellIcon.GetSystemIcon(ShellIcon.SHSTOCKICONID.SIID_APPLICATION, ShellIcon.SHGSI.SHGSI_ICON | ShellIcon.SHGSI.SHGSI_SMALLICON));
-            imlIcons.Images.Add("FOLDER_CLOSED", ShellIcon.GetSystemIcon(ShellIcon.SHSTOCKICONID.SIID_FOLDER, ShellIcon.SHGSI.SHGSI_ICON | ShellIcon.SHGSI.SHGSI_SMALLICON));
-            imlIcons.Images.Add("FOLDER_OPEN", ShellIcon.GetSystemIcon(ShellIcon.SHSTOCKICONID.SIID_FOLDEROPEN, ShellIcon.SHGSI.SHGSI_ICON | ShellIcon.SHGSI.SHGSI_SMALLICON));
+            InitializeComponent();            
         }
 
         /// <summary>
         /// Bind Composition Object to treeview
         /// </summary>
         private void Render(bool Clear = true) {
-            if (Clear) tvStartMenu.Nodes.Clear();
+            if (Clear)
+            { 
+                tvStartMenu.Nodes.Clear();
+                Image imStart = imlIcons.Images[0];
+
+                imlIcons.Images.Clear();
+                //Add Shell Icons
+                imlIcons.Images.Add("START", imStart);
+                imlIcons.Images.Add("APPLICATION_DEFAULT", ShellIcon.GetSystemIcon(ShellIcon.SHSTOCKICONID.SIID_APPLICATION, ShellIcon.SHGSI.SHGSI_ICON | ShellIcon.SHGSI.SHGSI_SMALLICON));
+                imlIcons.Images.Add("FOLDER_CLOSED", ShellIcon.GetSystemIcon(ShellIcon.SHSTOCKICONID.SIID_FOLDER, ShellIcon.SHGSI.SHGSI_ICON | ShellIcon.SHGSI.SHGSI_SMALLICON));
+                imlIcons.Images.Add("FOLDER_OPEN", ShellIcon.GetSystemIcon(ShellIcon.SHSTOCKICONID.SIID_FOLDEROPEN, ShellIcon.SHGSI.SHGSI_ICON | ShellIcon.SHGSI.SHGSI_SMALLICON));
+
+            }
             TreeNode lNode;
 
             //Create Main Node
@@ -177,7 +184,7 @@ namespace ComposerAdmin.Forms
         private void NodeDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             TreeView tv = (TreeView)sender;
-            TreeNode node =e.Node;
+            TreeNode node = e.Node;
             if (node != null) {
                 DesktopComposer.Implementation.Shortcut shortcut = (DesktopComposer.Implementation.Shortcut)node.Tag;
                 if (shortcut != null)
@@ -251,7 +258,8 @@ namespace ComposerAdmin.Forms
                 } 
                 else
                 {
-                    //Update Node
+                    tvStartMenu.SelectedNode.Text = shortcut.DisplayName;
+                    imlIcons.Images[imlIcons.Images.IndexOfKey(tvStartMenu.SelectedNode.ImageKey)] = shortcut.IconCacheSmall.ToBitmap();
                 }
                 InvokeDataChanged();
             }
@@ -460,6 +468,7 @@ namespace ComposerAdmin.Forms
         // specified in the ItemDrag event handler.
         private void tvDragEnter(object sender, DragEventArgs e)
         {
+            /*
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 Console.WriteLine("File drag");
@@ -471,10 +480,9 @@ namespace ComposerAdmin.Forms
                     //If Dragged File is not a shortcut don't allow Drag
                     if (Path.GetExtension(dragFile) != ".lnk")
                         e.Effect = DragDropEffects.None;
-                }
-
-
+                }            
             }
+            */
         }
 
         // Select the node under the mouse pointer to indicate the 

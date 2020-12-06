@@ -60,6 +60,7 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.imlIcons = new System.Windows.Forms.ImageList(this.components);
+            this.iconPickerDialog = new ComposerAdmin.IconPickerDialog();
             this.tabCMain.SuspendLayout();
             this.tabPGeneral.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBIcon)).BeginInit();
@@ -134,6 +135,7 @@
             resources.ApplyResources(this.btnChangeIcon, "btnChangeIcon");
             this.btnChangeIcon.Name = "btnChangeIcon";
             this.btnChangeIcon.UseVisualStyleBackColor = true;
+            this.btnChangeIcon.Click += new System.EventHandler(this.btnChangeIcon_Click);
             // 
             // textArguments
             // 
@@ -325,5 +327,6 @@
         private System.Windows.Forms.CheckBox chkPutOnStartMenu;
         private System.Windows.Forms.CheckBox chkPinOnTaskBar;
         private System.Windows.Forms.CheckBox chkPutOnDesktop;
+        private IconPickerDialog iconPickerDialog;
     }
 }

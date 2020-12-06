@@ -181,7 +181,8 @@ namespace ComposerAdmin.Forms
                     {
                         addACL = new ACL() {
                             SID = objectSID,
-                            ObjectName = objectName,
+                            //ObjectName = objectName,
+                            ObjectName = _resolveSID(objectSID),
                             ObjectPath = objectPath,
                             ObjectType = objectType,
                             ObjectID = Guid.NewGuid()
@@ -195,6 +196,12 @@ namespace ComposerAdmin.Forms
             }            
         }
 
+        private static string _resolveSID(string sObjectSID) {
+            SecurityIdentifier s = new SecurityIdentifier(sObjectSID);
+            string objectname = s.Translate(typeof(NTAccount)).Value;
+            Console.WriteLine(objectname);
+            return objectname;
+        }
         private void lv_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {            
             ItemSelectionChanged(sender, e);

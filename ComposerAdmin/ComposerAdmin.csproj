@@ -91,6 +91,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IconPickerDialog.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\ACLEditorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -13,25 +13,39 @@ namespace DesktopComposer.Implementation
     public class Shortcuts : ObservableCollection<Shortcut>
     {
         
-        public void Add(string shortcutPath, string basePath="")
+        public void Add(string shortcutPath, string basePath=null)
         {
             //Open Shortcut File            
             WshShell WinShell = new WshShell();
             WshShortcut WinShortcut;
             Shortcut lShortcut;
             
+            
             //REFACTOR: Method LoadFromFile in Shortcut
             WinShortcut = WinShell.CreateShortcut(shortcutPath);
-            string relativePath="";
+            string relativePath = "";
             string shortcutFileName = "";
+
+            // Check if is a MSI Package
+            
+            string shortcutTargetPath = WinShortcut.TargetPath;
+            string sShortcut = null;                        
+            
+            if (WinShortcut.TargetPath.IndexOf("windows\\installer", 0, WinShortcut.TargetPath.Length,StringComparison.InvariantCultureIgnoreCase) > 0){
+                //Test MSI Shortcut
+                sShortcut = MsiShortcutParser.ParseShortcut(shortcutPath);
+            }
+
+            if (sShortcut != null) shortcutTargetPath = sShortcut;
+
             foreach (Shortcut LocalShortcut in this)
             {
                 //TODO: Add other criteria (e.g. Arguments)
-                if (LocalShortcut.TargetPath == WinShortcut.TargetPath) return;
+                if (LocalShortcut.TargetPath == shortcutTargetPath) return;
             }
 
             //Relative Path
-            if (basePath != "")
+            if (basePath != null)
             {
                 relativePath = shortcutPath.Replace(basePath, "");
             }
@@ -42,7 +56,7 @@ namespace DesktopComposer.Implementation
             lShortcut = new Shortcut
             {
                 DisplayName = Path.GetFileNameWithoutExtension(shortcutPath),
-                TargetPath = WinShortcut.TargetPath,
+                TargetPath = shortcutTargetPath,
                 WorkingDirectory = WinShortcut.WorkingDirectory,
                 Arguments = WinShortcut.Arguments,
                 Hotkey = WinShortcut.Hotkey,

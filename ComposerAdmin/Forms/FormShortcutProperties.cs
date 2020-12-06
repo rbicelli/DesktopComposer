@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using DesktopComposer.Implementation;
 using ComposerAdmin.Properties;
+using System.Drawing;
+using DesktopComposer;
 
 namespace ComposerAdmin.Forms
 {
@@ -10,6 +12,8 @@ namespace ComposerAdmin.Forms
     {
         private DesktopComposer.Implementation.Shortcut _shortcut;
         private ACLs _acls;
+        private Icon _tempIcon;
+        private string _tempIconLocation;
         public FormShortcutProperties()
         {
             InitializeComponent();
@@ -44,6 +48,8 @@ namespace ComposerAdmin.Forms
         }
         public DialogResult ShowDialog(DesktopComposer.Implementation.Shortcut shortcut)
         {
+            if (shortcut == null) return DialogResult.Cancel;
+
             _shortcut = shortcut;
             _acls = (ACLs)shortcut.ACLs.Clone();
 
@@ -65,7 +71,9 @@ namespace ComposerAdmin.Forms
                         
             if (_shortcut.IconCacheLarge != null)
                 pBIcon.Image = _shortcut.IconCacheLarge.ToBitmap();
-            
+
+            _tempIcon = null;
+
             return this.ShowDialog();
         }
         
@@ -89,8 +97,13 @@ namespace ComposerAdmin.Forms
             _shortcut.ACLDenyByDefault = chkAclDenyByDefault.Checked;
             _shortcut.WindowStyle = int.Parse(comboWinMode.SelectedValue.ToString());
             _shortcut.CheckIfTargetExists = chkCheckIfTargetExists.Checked;
-            _shortcut.ACLs = _acls;            
-            
+            _shortcut.ACLs = _acls;
+
+            if (_tempIconLocation != null) {
+                _shortcut.IconLocation = _tempIconLocation;
+                _shortcut.FindIcon();
+            }
+
             this.Close();
         }
 
@@ -102,6 +115,22 @@ namespace ComposerAdmin.Forms
         private void btnACLDelete_Click(object sender, EventArgs e)
         {
             aclEditor.ACLDelete();
+        }
+
+        private void btnChangeIcon_Click(object sender, EventArgs e)
+        {            
+            DialogResult result = iconPickerDialog.ShowDialog(this);
+            if (result == DialogResult.OK)
+            {                
+                _tempIconLocation = iconPickerDialog.FileName + "," + iconPickerDialog.IconIndex.ToString();
+                _tempIcon = ShellIcon.IconExtract(iconPickerDialog.FileName, iconPickerDialog.IconIndex, 1);
+
+                _shortcut.FindIcon();
+                if (_shortcut.IconCacheLarge != null)
+                    pBIcon.Image = _tempIcon.ToBitmap();
+
+            }
+            iconPickerDialog.Dispose();
         }
     }
 }

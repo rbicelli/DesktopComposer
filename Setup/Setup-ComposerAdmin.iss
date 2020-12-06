@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Composition Editor"
-#define MyAppVersion "0.9.2"
+#define MyAppVersion "0.9.3"
 #define MyAppVersionText "0.9"
 #define MyAppURL "https://github.com/rbicelli/DesktopComposer"
 #define MyAppExeName "ComposerAdmin.exe"
@@ -24,7 +24,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={commonpf}\Sequence Software\ComposerEditor
+DefaultDirName={commonpf}\Sequence Software\Composer Admin
 DefaultGroupName={#MyAppGroupName}
 OutputBaseFilename=ComposerAdminSetup-{#MyAppVersion}
 Compression=lzma

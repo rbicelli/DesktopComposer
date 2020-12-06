@@ -169,10 +169,10 @@ namespace DesktopComposer.Implementation
 
             string[] IconData = IconLocation.Split(',');
             string IconPath = "";
-            int IconIndex;
+            int IconIndex = 0;
             if (IconData.Count() == 2)
             {
-                IconIndex = Int32.Parse(IconData[1]);
+                IconIndex = int.Parse(IconData[1]);
                 IconPath = IconData[0];                
             }            
             
@@ -193,9 +193,9 @@ namespace DesktopComposer.Implementation
             if (System.IO.File.Exists(IconPath))
             {
                 //IconCacheLarge = ShellIcon.IconExtract(IconPath,IconIndex,1);
-                //IconCacheSmall = ShellIcon.IconExtract(IconPath, IconIndex);
-                Icon lIcon = ShellIcon.GetAssociatedIcon(IconPath);
+                Icon lIcon = ShellIcon.IconExtract(IconPath, IconIndex, 1);
                 IconCacheLarge = lIcon;
+                lIcon = ShellIcon.IconExtract(IconPath, IconIndex);
                 IconCacheSmall = lIcon;
             }
         }

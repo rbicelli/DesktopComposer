@@ -64,6 +64,7 @@
     <Compile Include="Implementation\Shortcuts.cs" />
     <Compile Include="Interfaces\IACL.cs" />
     <Compile Include="Interfaces\IShortcut.cs" />
+    <Compile Include="MsiShortcutParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShellIcon.cs" />
   </ItemGroup>
